@@ -22,6 +22,7 @@ class ProductController extends Controller
   }
 
   public function create(){
+    
     return view('products.create');
   }
 
@@ -33,6 +34,7 @@ class ProductController extends Controller
           'content' => 'required'
       ]);
       $this->product->create($request);
+      // $file = $request->file('file');
       return redirect()->route('products.index');
   }
 

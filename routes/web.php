@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\UploadController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,3 +39,6 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 // Laravel에서 업데이트의 대한 메서드로는 Patch 또는 Put을 권장합니다.
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+Route::view('upload', 'upload');
+Route::post('upload', [UploadController::class, 'index']);
