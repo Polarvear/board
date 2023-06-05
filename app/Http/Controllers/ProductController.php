@@ -26,17 +26,35 @@ class ProductController extends Controller
     return view('products.create');
   }
 
-  public function store(Request $request) {
-      // Request 에 대한 유효성 검사입니다, 다양한 종류가 있기에 공식문서를 보시는 걸 추천드립니다.
-      // 유효성에 걸린 에러는 errors 에 담깁니다.
-      $request = $request->validate([
-          'name' => 'required',
-          'content' => 'required'
-      ]);
-      $this->product->create($request);
-      // $file = $request->file('file');
-      return redirect()->route('products.index');
-  }
+  public function store(Request $request)
+{
+  // Request 에 대한 유효성 검사입니다, 다양한 종류가 있기에 공식문서를 보시는 걸 추천드립니다.
+  // 유효성에 걸린 에러는 errors 에 담깁니다.
+    $request->validate([
+        'name' => 'required', //필수 데이터
+        'content' => 'required', //필수 데이터
+        'files.*' => 'required|file' // files[] 필드에 대한 유효성 검사 규칙입니다
+    ]);
+
+    if ($request->hasFile('files')) {
+        $files = $request->file('files');
+        $paths = [];
+
+        foreach ($files as $file) {
+            $path = $file->store('docs');
+            $paths[] = $path;
+        }
+
+        $requestData = $request->except('files');  //요청 데이터에서 "files" 필드를 제외합니다
+        $requestData['files'] = $paths; // 업로드된 파일들의 경로를 요청 데이터에 추가합니다
+
+        $this->product->create($requestData);
+
+        return redirect()->route('products.index');
+    }
+
+    return response()->json(['message' => '파일 업로드 실패']);
+}
 
   // 상세 페이지
   public function show(Product $product){

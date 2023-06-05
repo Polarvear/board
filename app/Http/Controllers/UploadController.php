@@ -6,8 +6,19 @@ use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
-    public function index(Request $request) {
-      // return "Hello from controller";
-      return $request->file('file')->store('docs');
+  public function index(Request $request) {
+    if ($request->hasFile('files')) {
+        $files = $request->file('files');
+        $paths = [];
+
+        foreach ($files as $file) {
+            $path = $file->store('docs');
+            $paths[] = $path;
+        }
+
+        return $paths;
     }
+
+    return response()->json(['message' => 'No files uploaded.']);
+  }
 }

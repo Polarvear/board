@@ -28,7 +28,7 @@
             <label for="content" class="form-label">Content</label>
             <textarea rows="10" cols="40" name="content" class="form-control" id="name" autocomplete="off"></textarea>
         </div>
-        <input type="file" name="file"></input>
+        <input type="file" name="files[]" multiple>
         <br>
         <br>
         <button type="submit" class="btn btn-primary">Submit</button>

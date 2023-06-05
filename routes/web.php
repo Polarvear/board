@@ -42,3 +42,6 @@ Route::delete('products/{product}', [ProductController::class, 'destroy'])->name
 
 Route::view('upload', 'upload');
 Route::post('upload', [UploadController::class, 'index']);
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
