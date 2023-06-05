@@ -40,8 +40,13 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+//아래 두개 라우트 실험용 라우트임
 Route::view('upload', 'upload');
 Route::post('upload', [UploadController::class, 'index']);
-Auth::routes();
+
+
+// Auth::routes(); // 일단 주석처리
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
