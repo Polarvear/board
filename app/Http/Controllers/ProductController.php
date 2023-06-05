@@ -35,4 +35,29 @@ class ProductController extends Controller
       $this->product->create($request);
       return redirect()->route('products.index');
   }
+
+  // 상세 페이지
+  public function show(Product $product){
+  // show 에 경우는 해당 페이지의 모델 값이 파라미터로 넘어옵니다.
+    return view('products.show', compact('product'));
+  }
+
+  public function edit(Product $product){
+    return view('products.edit', compact('product'));
+  }
+
+  public function update(Request $request, Product $product){
+    $request = $request->validate([
+        'name' => 'required',
+        'content' => 'required'
+    ]);
+    // $product는 수정할 모델 값이므로 바로 업데이트 해줍시다.
+    $product->update($request);
+    return redirect()->route('products.index', $product);
+  }
+
+  public function destroy(Product $product){
+    $product->delete();
+    return redirect()->route('products.index');
+  }
 }
