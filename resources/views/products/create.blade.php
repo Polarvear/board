@@ -21,12 +21,28 @@
         {{-- 라라벨은 CSRF로 부터 보호하기 위해 데이터를 등록할 때의 위조를 체크 하기 위해 아래 코드가 필수 --}}
         @csrf
         <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
+            <label for="process-type" class="form-label">타입</label>
+            <input type="text" name="process-type" class="form-control" id="" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">유물이름</label>
             <input type="text" name="name" class="form-control" id="name" autocomplete="off">
         </div>
         <div class="mb-3">
-            <label for="content" class="form-label">Content</label>
+            <label for="assets-sort" class="form-label">문화재 분류</label>
+            <input type="text" name="assets-sort" class="form-control" id="" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">유물설명</label>
             <textarea rows="10" cols="40" name="content" class="form-control" id="name" autocomplete="off"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="process-level" class="form-label">작업단계</label>
+            <input type="text" name="process-level" class="form-control" id="" autocomplete="off">
+        </div>
+        <div class="mb-3">
+            <label for="advisor" class="form-label">자문위원</label>
+            <input type="text" name="advisor" class="form-control" id="" autocomplete="off">
         </div>
         <input type="file" name="files[]" multiple>
         <br>

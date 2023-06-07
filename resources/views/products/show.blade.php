@@ -13,6 +13,11 @@
             {{$product->content}}
         </div>
     </div>
+    <div class="content mt-4 rounded-3 border border-secondary">
+        <div class="p-3">
+            타입 : {{$product->type}}
+        </div>
+    </div>
 
     
 

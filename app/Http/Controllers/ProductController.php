@@ -33,6 +33,7 @@ class ProductController extends Controller
     $request->validate([
         'name' => 'required', //필수 데이터
         'content' => 'required', //필수 데이터
+        'process-type' => 'required', //필수 데이터
         'files.*' => 'required|file' // files[] 필드에 대한 유효성 검사 규칙입니다
     ]);
 
@@ -47,6 +48,7 @@ class ProductController extends Controller
 
         $requestData = $request->except('files');  //요청 데이터에서 "files" 필드를 제외합니다
         $requestData['files'] = $paths; // 업로드된 파일들의 경로를 요청 데이터에 추가합니다
+        $requestData['type'] = $request->input('process-type'); // 넘어온 process-type도 함께 추가합니다
 
         $this->product->create($requestData);
 
@@ -67,6 +69,9 @@ class ProductController extends Controller
   }
 
   public function update(Request $request, Product $product){
+    // dd($request->all());
+
+    // dd($product);
     $request = $request->validate([
         'name' => 'required',
         'content' => 'required'
