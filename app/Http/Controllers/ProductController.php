@@ -74,7 +74,8 @@ class ProductController extends Controller
     // dd($product);
     $request = $request->validate([
         'name' => 'required',
-        'content' => 'required'
+        'content' => 'required',
+        'flow_1' => 'required'
     ]);
     // $product는 수정할 모델 값이므로 바로 업데이트 해줍시다.
     $product->update($request);
@@ -85,4 +86,33 @@ class ProductController extends Controller
     $product->delete();
     return redirect()->route('products.index');
   }
+
+  public function ajaxRequest(Product $product, Request $request) {
+    $requestFlowListJson = $request->input('flowList');
+    $requestnumberValue = $request->input('numberValue');
+
+    $requestFlowList = json_decode($requestFlowListJson);
+    $updateData = [];
+    if (!empty($requestFlowList)) {
+        $updateData = [
+            'flow_1' => $requestFlowList[0] ?? null,
+            'flow_2' => $requestFlowList[1] ?? null,
+            'flow_3' => $requestFlowList[2] ?? null,
+            'flow_4' => $requestFlowList[3] ?? null,
+            'flow_5' => $requestFlowList[4] ?? null,
+            'flow_6' => $requestFlowList[5] ?? null,
+            'flow_7' => $requestFlowList[6] ?? null,
+            'flow_8' => $requestFlowList[7] ?? null,
+            'flow_9' => $requestFlowList[8] ?? null,
+            'flow_10' => $requestFlowList[9] ?? null,
+            'flow_11' => $requestFlowList[10] ?? null,
+            'flow_12' => $requestFlowList[11] ?? null,
+        ];
+    }
+
+    $product->where('id', $requestnumberValue)->update($updateData);
+
+    return response()->json(['message' => 'Update successful']);
+  }
+
 }

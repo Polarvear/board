@@ -50,3 +50,7 @@ Route::post('upload', [UploadController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+//ajax 처리기
+Route::post('/ajaxRequest', 'App\Http\Controllers\ProductController@ajaxRequest')->name('product.ajaxRequest');
+
+Route::get('/user-info', [App\Http\Controllers\UserInfoController::class, 'index'])->name('user-info');

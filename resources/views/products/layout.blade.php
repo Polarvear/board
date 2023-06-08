@@ -26,17 +26,21 @@ const editBtns = document.getElementsByClassName('edit-btn');
     let className = e.target.className;
     const classValue = className.match(/\d+/);
     let numberValue = classValue ? classValue[0] : "";
-    console.log(numberValue);
+    //console.log(numberValue);
 
     let elements = document.getElementsByClassName(numberValue);
-
+    
     // 선택된 요소들을 순회하며 작업 수행
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i];
-      // 작업 수행
-      // 예시로 콘솔에 출력
+      // if (aTagName === "A") {
+      //   console.log(aTagName === "A");
+      //   aTagName.remove();
+      // }
       if(element.readOnly) {
         element.removeAttribute('readonly');
+        //aTag.remove();
+
       }
     }
   });
@@ -45,7 +49,38 @@ const editBtns = document.getElementsByClassName('edit-btn');
 const saveBtn = document.getElementsByClassName('save-btn');
 Array.from(saveBtn).forEach((saveBtn) => {
   saveBtn.addEventListener('click', (e) => {
-    alert('저장버튼 클릭');
+    let className = e.target.className;
+    // console.log(className);
+    const classValue = className.match(/\d+/);
+    let numberValue = classValue ? classValue[0] : "";
+    let elements = document.getElementsByClassName(numberValue);
+    const flowList = [];
+    for (let i = 0; i < elements.length; i++) {
+      let element = elements[i];
+      flowList.push(element.value);
+        // console.log(element.value);
+
+    }
+    console.log(numberValue);
+    console.log(flowList);
+
+    $.ajax({
+      type: "POST",
+      url: "{{ route('product.ajaxRequest') }}",
+      data: {
+        flowList : JSON.stringify(flowList),
+        numberValue,
+        _token: '{{ csrf_token() }}'
+      }, // Add a comma here
+      success: function(response) {
+        console.log(response.flowList);
+        // console.log('성공');
+        location.reload();
+      },
+      error: function(response) {
+        console.error(error);
+      }
+    });
   });
 });
 
