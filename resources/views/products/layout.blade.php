@@ -17,6 +17,10 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 <script>
 
+
+
+
+
 const editBtns = document.getElementsByClassName('edit-btn');
 
 // editBtns를 배열로 변환하여 반복문 실행
@@ -29,10 +33,11 @@ const editBtns = document.getElementsByClassName('edit-btn');
     //console.log(numberValue);
 
     let elements = document.getElementsByClassName(numberValue);
-    
+
     // 선택된 요소들을 순회하며 작업 수행
     for (let i = 0; i < elements.length; i++) {
       let element = elements[i];
+      // console.log(element.value);
       // if (aTagName === "A") {
       //   console.log(aTagName === "A");
       //   aTagName.remove();
@@ -61,8 +66,8 @@ Array.from(saveBtn).forEach((saveBtn) => {
         // console.log(element.value);
 
     }
-    console.log(numberValue);
-    console.log(flowList);
+    // console.log(numberValue);
+    // console.log(flowList);
 
     $.ajax({
       type: "POST",
@@ -73,7 +78,7 @@ Array.from(saveBtn).forEach((saveBtn) => {
         _token: '{{ csrf_token() }}'
       }, // Add a comma here
       success: function(response) {
-        console.log(response.flowList);
+        //console.log(response.flowList);
         // console.log('성공');
         location.reload();
       },

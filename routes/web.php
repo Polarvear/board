@@ -53,4 +53,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //ajax 처리기
 Route::post('/ajaxRequest', 'App\Http\Controllers\ProductController@ajaxRequest')->name('product.ajaxRequest');
 
-Route::get('/user-info', [App\Http\Controllers\UserInfoController::class, 'index'])->name('user-info');
+Route::get('/user-info', [App\Http\Controllers\JobsController::class, 'index'])->name('user-info');
+
+//댓글등록
+Route::post('/comments/store', [App\Http\Controllers\CommentsController::class, 'store'])->name('comment.add');
+// Route::post('/comments/store', 'App\Http\Controllers\CommentsController@store')->name('comment.add');

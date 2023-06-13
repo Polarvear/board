@@ -52,7 +52,7 @@
                   @if (isset($product->flow_1))
                   <div style="">
                     <input type="text" name="flow_1" class="form-control {{$product->id}}" value="{{$product->flow_1}}" readonly>
-                    <a href="{{ route('user-info') }}?flow_1={{$product->flow_1}}" class="{{$product->id}} a-tag">정보보기</a>  
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_1}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                   @else
                     <div style="">
@@ -62,9 +62,8 @@
 
                   @if (isset($product->flow_2))
                   <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_2" class="form-control {{$product->id}}" value="{{$product->flow_2}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_2}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                   @else
                     <input type="text" name="flow_2" class="form-control {{$product->id}}" value="" readonly>
@@ -75,9 +74,8 @@
                   <div style="display:flex; width: 177px;">
                 @if (isset($product->flow_3))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_3" class="form-control {{$product->id}}" value="{{$product->flow_3}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_3" class="form-control {{$product->id}}" value="" readonly>
@@ -85,9 +83,8 @@
 
                 @if (isset($product->flow_4))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_4" class="form-control {{$product->id}}" value="{{$product->flow_4}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_4" class="form-control {{$product->id}}" value="" readonly>
@@ -98,9 +95,8 @@
                 <div style="display:flex; width: 177px;">
                 @if (isset($product->flow_5))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_5" class="form-control {{$product->id}}" value="{{$product->flow_5}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_5}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_5" class="form-control {{$product->id}}" value="" readonly>
@@ -108,9 +104,8 @@
 
                 @if (isset($product->flow_6))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_6" class="form-control {{$product->id}}" value="{{$product->flow_6}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_6}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_6" class="form-control {{$product->id}}" value="" readonly>
@@ -121,9 +116,8 @@
                 <div style="display:flex; width: 177px;">
                 @if (isset($product->flow_7))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_7" class="form-control {{$product->id}}" value="{{$product->flow_7}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_7}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_7" class="form-control {{$product->id}} " value="" readonly>
@@ -131,9 +125,8 @@
 
                 @if (isset($product->flow_8))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_8" class="form-control {{$product->id}}" value="{{$product->flow_8}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_8}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_8" class="form-control {{$product->id}}" value="" readonly>
@@ -144,9 +137,8 @@
                 <div style="display:flex; width: 177px;">
                 @if (isset($product->flow_9))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_9" class="form-control {{$product->id}}" value="{{$product->flow_9}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_9}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_9" class="form-control {{$product->id}}" value="" readonly>
@@ -154,12 +146,11 @@
 
                 @if (isset($product->flow_10))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag" >
                       <input type="text" name="flow_10" class="form-control {{$product->id}}" value="{{$product->flow_10}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_10}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
-                  <input type="text" name="flow_10" class="form-control {{$product->id}}" value="" readonly> 
+                  <input type="text" name="flow_10" class="form-control {{$product->id}}" value="" readonly>
                 @endif
                 </div>
                 </td><!--게임엔진-->
@@ -167,9 +158,8 @@
                 <div style="display:flex; width: 177px;">
                 @if (isset($product->flow_11))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_11" class="form-control {{$product->id}}" value="{{$product->flow_11}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_11}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_11" class="form-control {{$product->id}}" value="" readonly>
@@ -177,21 +167,20 @@
 
                 @if (isset($product->flow_12))
                 <div style="">
-                    <a href="https://www.naver.com/" class="{{$product->id}} a-tag">
                       <input type="text" name="flow_12" class="form-control {{$product->id}}" value="{{$product->flow_12}}" readonly>
-                    </a>  
+                      <a href="{{ route('user-info') }}?manager={{$product->flow_12}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">정보보기</a>
                   </div>
                 @else
                   <input type="text" name="flow_12" class="form-control {{$product->id}}" value="" readonly>
                 @endif
                 </div>
                 </td><!--배포-->
-                
-                
-                
-                
-                
-                
+
+
+
+
+
+
                 <!-- 수정 & 삭제 부분 주석처리 -->
                 <td>
                   <div style="display:flex;">
@@ -212,9 +201,9 @@
                         @csrf
                         <input onclick="return confirm('정말로 삭제하겠습니까?')" type="submit" value="삭제"/>
                     </form>
-                  </div>  
+                  </div>
                 </td>
-               
+
             </tr>
         @endforeach
         </tbody>
