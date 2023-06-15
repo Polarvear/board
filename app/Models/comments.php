@@ -16,7 +16,7 @@ class comments extends Model
         'content'
   ];
 
-  public static function getAllData()
+  public static function getAllComments()
     {
         return self::all();
     }

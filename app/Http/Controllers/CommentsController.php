@@ -11,38 +11,19 @@ use Log;
 class CommentsController extends Controller
 {
 
-    private $comments;
 
-    public function __construct(comments $comments){
+    public function __construct(){
         // Laravel 의 IOC(Inversion of Control) 입니다
         // 일단은 이렇게 모델을 가져오는 것이 추천 코드라고 생각하시면 됩니다.
-        $this->comments = $comments;
     }
 
 
 
-    public function index(Request $request, comments $comments)
-    {
-    $commentData = $comments->getData();
-    // 로그파일에 기록
-    /*
-    $logData = '데이터가 없습니다';
-    if ($commentData->isEmpty()) {
-    echo "데이터가 없습니다.";
-    dd($logData);
-    Log::info($logData);
-    } else {
-    $logData = '데이터가 있습니다';
-    dd($logData);
-    Log::info($logData);
-    }
-    */
-
-    return view('products.user-info', ['comment' => $commentData]);
+    public function index() {
     }
 
 
-    public function create()
+    public function create() // 댓글 등록기능
     {
         //
     }

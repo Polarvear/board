@@ -9,7 +9,7 @@ class jobs extends Model
 {
     use HasFactory;
     // protected $connection = 'board';
-    protected $table = 'jobs';
+    protected $table = 'member';
 
     public static function getData() {
         return self::all();

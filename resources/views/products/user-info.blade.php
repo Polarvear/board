@@ -71,8 +71,13 @@
 </div>
     {{-- @endauth --}}
 
-    <div>
-            {{-- <p>내용: {{ print_r($commentData) }}</p> --}}
+    <div class="content mt-4 rounded-3 border border-secondary">
+        @foreach($comments as $comment)
+        <div class="p-3">
+            댓글: {{ $comment->content }}
+            <input type="button" value="삭제"/>
+        </div>
+        @endforeach
     </div>
 @endsection
 
