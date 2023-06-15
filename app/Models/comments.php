@@ -8,14 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class comments extends Model
 {
     use HasFactory;
-    // protected $table = 'jobs';
+    protected $table = 'comments';
 
-    // public static function getData() {
-    //     return self::all();
-    // }
     protected $fillable = [
         'product_id',
         'member_id',
         'content'
   ];
+
+  public static function getAllData()
+    {
+        return self::all();
+    }
+
 }
