@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\UploadController;
+use \App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,3 +59,25 @@ Route::get('/user-info', [App\Http\Controllers\JobsController::class, 'index'])-
 //댓글등록
 Route::post('/comments/store', [App\Http\Controllers\CommentsController::class, 'store'])->name('comment.add');
 // Route::post('/comments/store', 'App\Http\Controllers\CommentsController@store')->name('comment.add');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+Route::middleware(['auth', 'user-access:user'])->group(function () {
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
+
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+
+    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+});
+
+Route::middleware(['auth', 'user-access:manager'])->group(function () {
+
+    Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
+});
