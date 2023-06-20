@@ -81,3 +81,9 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
     Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
 });
+
+
+Route::get('/admin/settings', [App\Http\Controllers\AdminSettingsController::class, 'index'])->name('admin.settings.index');
+
+Route::get('/admin/pages', [App\Http\Controllers\AdminPagesController::class, 'index'])->name('admin.pages.index');
+// Route::get('/admin/settings', 'AdminSettingsController@index')->name('admin.settings.index');

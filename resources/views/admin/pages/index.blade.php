@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('adminlte::page')
+
+
+
 
 @section('content')
 <div class="container">
@@ -6,14 +9,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
-
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    You are a User.
+                    pages 페이지입니다.
                 </div>
             </div>
         </div>
