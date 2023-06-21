@@ -83,7 +83,9 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 });
 
 
-Route::get('/admin/settings', [App\Http\Controllers\AdminSettingsController::class, 'index'])->name('admin.settings.index');
+Route::get('/admin/manage', [App\Http\Controllers\AdminManageController::class, 'index'])->name('admin.manage.index');
 
 Route::get('/admin/pages', [App\Http\Controllers\AdminPagesController::class, 'index'])->name('admin.pages.index');
+
+Route::delete('/admin/manage/{user}', [App\Http\Controllers\AdminManageController::class, 'destroy'])->name('admin.manage.destroy');
 // Route::get('/admin/settings', 'AdminSettingsController@index')->name('admin.settings.index');

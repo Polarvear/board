@@ -1,21 +1,7 @@
-
-<h2>수정할 페이지</h2>
-
 @php //GET으로 받은 새로운 페이지
     $user = request()->query('user');
     $productId = request()->query('product_id');
 @endphp
-
-@yield('head')
-    <style>
-        .p-tag {
-            display: flex;
-            justify-content: space-between;
-        }
-
-
-    </style>
-
 @extends('products.layout')
 
 @section('content')
@@ -30,13 +16,9 @@
         alert('{{ session('error') }}');
     </script>
     @endif
-    <p class="p-tag" style="" class="pt-2">
+    <p style="text-align: right" class="pt-2">
       <a href="{{route("admin.pages.index")}}">
         <button type="button" class="btn btn-primary">돌아가기</button>
-      </a>
-
-      <a href="{{route("admin.pages.index")}}">
-        <button type="button" class="btn btn-primary">수정하기 </button>
       </a>
     </p>
     <div class="content mt-4 rounded-3 border border-secondary">
@@ -58,7 +40,12 @@
     </div>
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
-            {{-- 유저 데이터 : {{ dd($user) }} --}}
+            작업자 이름 : {{ $user }}
+        </div>
+    </div>
+    <div class="content mt-4 rounded-3 border border-secondary">
+        <div class="p-3">
+            작업자 이름 : {{ $user }}
         </div>
     </div>
     <div class="content mt-4 rounded-3 border border-secondary">

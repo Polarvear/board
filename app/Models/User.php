@@ -13,6 +13,14 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $table = 'users';
+
+
+    public static function getUserData() {
+        return self::all();
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
