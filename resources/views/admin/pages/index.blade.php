@@ -89,38 +89,38 @@
             </td><!--영문이름-->
             <td class="inner-td" style="">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_1}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_1 ?: '등록' }}</a>
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_2}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_2 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_1}}&product_id={{$product->id}}&flow=1" class="{{$product->id}} a-tag">{{ $product->flow_1 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_2}}&product_id={{$product->id}}&flow=2" class="{{$product->id}} a-tag">{{ $product->flow_2 ?: '등록' }}</a>
                 </div>
             </td><!--기획-->
             <td class="inner-td">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_3 ?: '등록' }}</a>
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_4 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}&flow=3" class="{{$product->id}} a-tag">{{ $product->flow_3 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}&flow=4" class="{{$product->id}} a-tag">{{ $product->flow_4 ?: '등록' }}</a>
                 </div>
             </td><!--획득-->
             <td class="inner-td">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_5 ?: '등록' }}</a>
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_6 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}&flow=5" class="{{$product->id}} a-tag">{{ $product->flow_5 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}&flow=6" class="{{$product->id}} a-tag">{{ $product->flow_6 ?: '등록' }}</a>
                 </div>
             </td><!--모델링-->
             <td class="inner-td">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_7 ?: '등록' }}</a>
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_8 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}&flow=7" class="{{$product->id}} a-tag">{{ $product->flow_7 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}&flow=8" class="{{$product->id}} a-tag">{{ $product->flow_8 ?: '등록' }}</a>
                 </div>
             </td><!--맵핑-->
             <td class="inner-td">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_9 ?: '등록' }}</a>
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_10 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}&flow=9" class="{{$product->id}} a-tag">{{ $product->flow_9 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}&flow=10" class="{{$product->id}} a-tag">{{ $product->flow_10 ?: '등록' }}</a>
                 </div>
             </td><!--게임엔진-->
             <td class="inner-td">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_10 ?: '등록' }}</a>
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}" class="{{$product->id}} a-tag">{{ $product->flow_11 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_3}}&product_id={{$product->id}}&flow=11" class="{{$product->id}} a-tag">{{ $product->flow_10 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_4}}&product_id={{$product->id}}&flow=12" class="{{$product->id}} a-tag">{{ $product->flow_11 ?: '등록' }}</a>
                 </div>
             </td><!--배포-->
 

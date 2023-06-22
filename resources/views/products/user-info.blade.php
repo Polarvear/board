@@ -4,6 +4,7 @@
 @php //GET으로 받은 새로운 페이지
     $user = request()->query('user');
     $productId = request()->query('product_id');
+    $flow = request()->query('flow');
 @endphp
 
 @yield('head')
@@ -35,7 +36,7 @@
         <button type="button" class="btn btn-primary">돌아가기</button>
       </a>
 
-      <a href="{{route("admin.pages.index")}}">
+      <a href="{{route("admin.pages.create")}}?product={{$productId}}&flow={{$flow}}">
         <button type="button" class="btn btn-primary">수정하기 </button>
       </a>
     </p>
