@@ -31,12 +31,60 @@ class AdminPagesController extends Controller
         return view('admin.pages.create');
     }
 
+    public function store()
+    {
+        // $request = $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'phone' => 'required'
+        // ]);
+
+        // $products = Product::all();
+        // return view('admin.pages.create');
+    }
 
 
-    public function userAjax(Request $request)
+    public function update(Request $request, Product $product){
+        $request = $request->validate([
+            'flow-manager' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'flow' => 'required',
+            'product' => 'required'
+        ]);
+
+        $flow = $request['flow'];
+
+
+        $productID = $request['product'];
+        $flowName = 'flow_' . $flow;
+
+        Product::where('id', '=', $productID)
+        ->update([$flowName => $request['flow-manager']]);
+
+        return redirect()->route('admin.pages.index');
+    }
+
+
+    public function userSearch(Request $request)
     {
         $term = $request->input('term'); //사용자 입력값
         $users = User::where('name', 'LIKE', '%' . $term . '%')->pluck('name');
         return response()->json($users);
+    }
+
+    public function emailSearch(Request $request)
+    {
+        $term = $request->input('term'); //사용자 입력값
+        $email = User::where('email', 'LIKE', '%' . $term . '%')->pluck('email');
+        return response()->json($email);
+    }
+
+
+    public function phoneSearch(Request $request)
+    {
+        $term = $request->input('term'); //사용자 입력값
+        $phone = User::where('phone', 'LIKE', '%' . $term . '%')->pluck('phone');
+        return response()->json($phone);
     }
 }

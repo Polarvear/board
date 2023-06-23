@@ -20,7 +20,10 @@ class JobsController extends Controller
       $this->user = $user;
   }
   public function index(Request $request, jobs $jobs, comments $comments, User $user){
+
+    // dd($request);
     // products 의 데이터를 최신순으로 페이징을 해서 가져옵니다.
+
     $data = $jobs->getData();
     $jobs = $this->jobs;
     $user = $user->getUserData();

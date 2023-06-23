@@ -91,5 +91,11 @@ Route::get('/admin/pages/create', [App\Http\Controllers\AdminPagesController::cl
 Route::delete('/admin/manage/{user}', [App\Http\Controllers\AdminManageController::class, 'destroy'])->name('admin.manage.destroy');
 // Route::get('/admin/settings', 'AdminSettingsController@index')->name('admin.settings.index');
 
-Route::get('/userAjax', [App\Http\Controllers\AdminPagesController::class, 'userAjax'])->name('admin.pages.userAjax');
+Route::get('/userSearch', [App\Http\Controllers\AdminPagesController::class, 'userSearch'])->name('admin.pages.userSearch');
+Route::get('/emailSearch', [App\Http\Controllers\AdminPagesController::class, 'emailSearch'])->name('admin.pages.emailSearch');
+Route::get('/phoneSearch', [App\Http\Controllers\AdminPagesController::class, 'phoneSearch'])->name('admin.pages.phoneSearch');
+
+
+Route::post('/store', [App\Http\Controllers\AdminPagesController::class, 'store'])->name('admin.pages.store');
+Route::patch('/admin/pages/{product}', [App\Http\Controllers\AdminPagesController::class, 'update'])->name('admin.pages.update');
 

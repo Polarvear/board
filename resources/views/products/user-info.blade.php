@@ -2,7 +2,7 @@
 <h2>수정할 페이지</h2>
 
 @php //GET으로 받은 새로운 페이지
-    $user = request()->query('user');
+    $manager = request()->query('manager');
     $productId = request()->query('product_id');
     $flow = request()->query('flow');
 @endphp
@@ -42,7 +42,7 @@
     </p>
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
-            작업자 이름 : {{ $user }}
+            작업자 이름 : {{ $manager }}
         </div>
     </div>
     <div class="content mt-4 rounded-3 border border-secondary">
