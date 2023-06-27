@@ -57,10 +57,15 @@ class AdminPagesController extends Controller
 
 
         $productID = $request['product'];
-        $flowName = 'flow_' . $flow;
+        $flowName = 'flow_' . $flow ;
+        $flowEmail = 'flow_' . $flow . '_email';
 
         Product::where('id', '=', $productID)
-        ->update([$flowName => $request['flow-manager']]);
+        ->update([
+
+        $flowName => $request['flow-manager'],
+        $flowEmail => $request['email']
+    ]);
 
         return redirect()->route('admin.pages.index');
     }

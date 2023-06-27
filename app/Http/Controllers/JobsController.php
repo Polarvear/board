@@ -21,8 +21,14 @@ class JobsController extends Controller
   }
   public function index(Request $request, jobs $jobs, comments $comments, User $user){
 
-    // dd($request);
     // products 의 데이터를 최신순으로 페이징을 해서 가져옵니다.
+    $managerEmail = $request->input('manager');
+
+
+    $userAllData = User::where('email', $managerEmail)->first();
+    $userName = $userAllData->name;
+
+
 
     $data = $jobs->getData();
     $jobs = $this->jobs;
@@ -31,7 +37,7 @@ class JobsController extends Controller
 
     // produce/index.blade 에 $products 를 보내줍니다
     // return view('products.user-info', compact('jobs'));
-    return view('products.user-info', ['data' => $data, 'comments' => $comments, 'user' => $user]);
+    return view('products.user-info', ['data' => $data, 'comments' => $comments, 'user' => $user, 'userAllData' => $userAllData]);
   }
 
 }

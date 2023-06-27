@@ -42,21 +42,31 @@
     </p>
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
-            작업자 이름 : {{ $manager }}
+            작업자 이름 : {{ $userAllData->name }}
         </div>
     </div>
     <div class="content mt-4 rounded-3 border border-secondary">
-        @foreach($data as $item)
         <div class="p-3">
-            소속(회사): {{ $item->company }}
+            소속(회사): {{ $userAllData->company }}
         </div>
-        @endforeach
+    </div>
+    <div class="content mt-4 rounded-3 border border-secondary">
+        <div class="p-3">
+            이메일 :
+            <a href="mailto:{{ $userAllData->email }}">{{ $userAllData->email }}</a>
+        </div>
+    </div>
+    <div class="content mt-4 rounded-3 border border-secondary">
+        <div class="p-3">
+            연락처 : {{ $userAllData->phone }}
+        </div>
     </div>
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
             데이터 : {{ print_r($data) }}
         </div>
     </div>
+
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
             {{-- 유저 데이터 : {{ dd($user) }} --}}

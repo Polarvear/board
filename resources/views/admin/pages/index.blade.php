@@ -89,7 +89,7 @@
             </td><!--영문이름-->
             <td class="inner-td" style="">
                 <div class="inner-div" style="">
-                    <a href="{{ route('user-info') }}?manager={{$product->flow_1}}&product_id={{$product->id}}&flow=1" class="{{$product->id}} a-tag">{{ $product->flow_1 ?: '등록' }}</a>
+                    <a href="{{ route('user-info') }}?manager={{$product->flow_1_email}}&product_id={{$product->id}}&flow=1" class="{{$product->id}} a-tag">{{ $product->flow_1 ?: '등록' }}</a>
                     <a href="{{ route('user-info') }}?manager={{$product->flow_2}}&product_id={{$product->id}}&flow=2" class="{{$product->id}} a-tag">{{ $product->flow_2 ?: '등록' }}</a>
                 </div>
             </td><!--기획-->
