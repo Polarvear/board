@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+
 
 class LoginController extends Controller
 {
@@ -62,5 +65,21 @@ class LoginController extends Controller
                 ->with('error','Email-Address And Password Are Wrong.');
         }
 
+    }
+
+    public function redirectToNaver()
+    {
+        return Socialite::driver('naver')->redirect();
+    }
+
+    public function handleNaverCallback()
+    {
+        $user = Socialite::driver('naver')->user();
+
+        // 네이버 사용자 정보를 사용하여 로그인 또는 회원가입 처리
+
+        Auth::login($user);
+
+        return redirect('/home');
     }
 }

@@ -37,7 +37,8 @@ class JobsController extends Controller
 
     // produce/index.blade 에 $products 를 보내줍니다
     // return view('products.user-info', compact('jobs'));
-    return view('products.user-info', ['data' => $data, 'comments' => $comments, 'user' => $user, 'userAllData' => $userAllData]);
+    // return view('products.user-info', ['data' => $data, 'comments' => $comments, 'user' => $user, 'userAllData' => $userAllData]);
+    return view('products.user-info', ['data' => $data, 'user' => $user, 'userAllData' => $userAllData, 'comments' => $comments]);
   }
 
 }

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\UploadController;
 use \App\Http\Controllers\HomeController;
+use \App\Http\Controllers\GoogleAuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,3 +100,15 @@ Route::get('/phoneSearch', [App\Http\Controllers\AdminPagesController::class, 'p
 Route::post('/store', [App\Http\Controllers\AdminPagesController::class, 'store'])->name('admin.pages.store');
 Route::patch('/admin/pages/{product}', [App\Http\Controllers\AdminPagesController::class, 'update'])->name('admin.pages.update');
 
+//네이버 로그인
+// Route::get('auth/naver/redirect', 'Auth\LoginController@redirectToNaver');
+// Route::get('/auth/naver/redirect', 'Auth\NaverController@redirect')->name('auth.naver.redirect');
+// Route::get('/auth/naver/redirect', 'Auth\NaverController@redirect')->name('auth.naver.redirect');
+// Route::get('auth/naver/callback', 'Auth\LoginController@handleNaverCallback');
+
+
+Route::get('/auth/naver/redirect', 'Auth\NaverController@redirect')->name('auth.naver.redirect');
+Route::get('/auth/naver/callback', 'Auth\NaverController@callback')->name('auth.naver.callback');
+
+Route::get('auth/google', [App\Http\Controllers\GoogleAuthController::class,'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [App\Http\Controllers\GoogleAuthController::class,'callbackGoogle']);

@@ -186,6 +186,7 @@ return [
         //디버깅바
         Barryvdh\Debugbar\ServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */
@@ -198,6 +199,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //Social 로그인 providers
+        Laravel\Socialite\SocialiteServiceProvider::class,
 
     ],
 

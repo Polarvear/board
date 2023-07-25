@@ -43,19 +43,25 @@ class CommentsController extends Controller
             // return redirect()->back();
             return redirect()->back()->withErrors($validator)->withInput()->with('error', '댓글 등록에 실패했습니다.');
         } else{
+
             $productID = $request->input('product_id');
-            print_r($productID);
-            $userName = $request->input('userName');
+            // print_r($productID);
+            // $userName = $request->input('userName');
             $memberID = $request->input('member_id');
+            // print_r(request()->commentStory);
+            // print_r($memberID);
+            // exit;
+
             Comments::create([
                 'product_id' => $productID,
-                'userID' => auth() -> id(),
+                // 'userID' => auth()->id(),
                 // 'userName' => Auth::user()->name,
-                'member_id' => $memberID,
-                'userName' => $userName,
-                'content' => request() -> commentStory
+                'flow_num' => $memberID,
+                // 'user_name' => $userName,
+                'comments' => request()->commentStory
             ]);
             session()->flash('success', '댓글이 성공적으로 등록되었습니다.');
+            // exit;
             return redirect()->back();
         }
     }

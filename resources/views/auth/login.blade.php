@@ -65,6 +65,8 @@
                             </div>
                         </div>
                     </form>
+                    <a href="{{ route('auth.naver.redirect') }}">네이버로 로그인</a>
+                    <a href="{{ route('google-auth') }}">구글로 로그인</a>
                 </div>
             </div>
         </div>

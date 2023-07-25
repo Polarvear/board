@@ -23,34 +23,39 @@
                     You are a User.
                 </div>
             </div>
-            {{ $user->email }}
-            @php
-               print_r('출력출력:::');
-               print_r($user->email);
-            @endphp
+            {{-- {{ $user->email }} --}}
             <h2 style="margin-top: 10px;">진행중인 작업 목록</h2>
             @foreach($products as $product)
             @php
             $productArray = $product->toArray();
-            print_r($productArray);
-            echo ":::배열인지아닌지";
-            print_r(is_array($productArray));
-            print_r($user->email);
             $targetEmail = $user->email;
-            echo "::::";
-            print_r($targetEmail);
-            // $targetKey = array_keys($targetEmail, $productArray);
-
+            $matchingKeys = [];
+            foreach ($productArray as $key => $value) {
+            if ($value === $targetEmail) {
+            $matchingKeys[] = $key;
+                }
+            }
             @endphp
-            {{-- {{ $targetKey }} --}}
             <div class="card">
                 <div class="card-header">
                  프로젝트 명 : {{ $product->name }}
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Special title treatment</h5>
-                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">담당 업무</h5>
+                  @foreach ($matchingKeys as $flow)
+
+                  @php
+                  // 정규표현식으로 추출
+                  preg_match('/\d+/', $flow, $matches);
+                  $flowNumber = $matches[0];
+                  @endphp
+                  {{-- {{ $flowNumber }} --}}
+                  {{-- <p class="card-text">{{ $flow }}</p> --}}
+                  <a href="{{ route('user-info') }}?manager={{ $user->email }}&product_id={{ $product->id }}&flow={{ $flowNumber }}" class="{{ $product->id }} a-tag">{{ $flow }}</a>
+                  <br>
+                  <br>
+                  @endforeach
+                  <a href="{{route("products.show", $product->id)}}" class="btn btn-primary">프로젝트 정보보기</a>
                 </div>
               </div>
             @endforeach
