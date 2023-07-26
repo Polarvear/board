@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\comments;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Log;
 
 
@@ -107,8 +108,18 @@ class CommentsController extends Controller
      * @param  \App\Models\comments  $comments
      * @return \Illuminate\Http\Response
      */
-    public function destroy(comments $comments)
+    public function destroy(Request $request)
     {
-        //
+
+        $commentId = $request->input('comment-id');
+        $comment = DB::table('comments')->find($commentId);
+
+        if (!$comment) {
+            return back()->with('error', '삭제할 댓글을 찾을 수 없습니다.');
+        }
+
+        // 댓글 삭제
+        DB::table('comments')->where('id', $commentId)->delete();
+        return back()->with('success', '댓글이 성공적으로 삭제되었습니다.');
     }
 }

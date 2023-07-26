@@ -104,33 +104,88 @@
     </div>
 {{--  댓글작성   --}}
 {{-- @auth() --}}
-<div class="w-4/5 mx-auto mt-6 text-right">
-    <form method="post" action="{{route('comment.add')}}" enctype="multipart/form-data">
-        @csrf
-        {{-- <input type="hidden" name="parent_id" value="{{$board->id}}"> --}}
-        <input type="hidden" name="product_id" value="{{ $productId }}">
-        <input type="hidden" name="member_id" value="{{ $flow }}">
-        <br>
-        <textarea name="commentStory" class="border border-blue-300 resize-none w-full h-32 comment-area"></textarea>
-        <button type="submit" class="btn btn-primary">등록하기</button>
-    </form>
-</div>
+    <div class="w-4/5 mx-auto mt-6 text-right">
+        <form method="post" action="{{route('comment.add')}}" enctype="multipart/form-data">
+            @csrf
+            {{-- <input type="hidden" name="parent_id" value="{{$board->id}}"> --}}
+            <input type="hidden" name="product_id" value="{{ $productId }}">
+            <input type="hidden" name="member_id" value="{{ $flow }}">
+            <br>
+            <textarea name="commentStory" class="border border-blue-300 resize-none w-full h-32 comment-area"></textarea>
+            <button type="submit" class="btn btn-primary">등록하기</button>
+        </form>
+    </div>
     {{-- @endauth --}}
 
     <div class="content mt-4 rounded-3 border border-secondary">
         @foreach ($comments as $comment)
         @if ($comment->product_id == $productId && $comment->flow_num == $flow) {{-- 해당 댓글만 보여주기--}}
-        <p>댓글: {{ $comment->comments }}
+        <p>
+            댓글 : <span id="comment{{ $comment->id }}">{{ $comment->comments }}</span>
             <button type="" class="btn btn-success confirm-btn">확인</button>
+            <button type="" class="btn btn-primary" id="edit{{ $comment->id }}" onclick="editComment({{ $comment->id }})">수정</button>
+            {{-- <form action="{{ route('comment.delete') }}" method="post" id="deleteForm{{ $comment->id }}"> --}}
+            <form action="" method="POST" id="deleteForm{{ $comment->id }}">
+                @csrf
+                {{-- @method('delete') --}}
+                <input type="hidden" name="comment-id" value="{{ $comment->id }}">
+                <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $comment->id }})">삭제</button>
+            </form>
         </p>
         @endif
         @endforeach
-    </div
-@endsection
-{{--
-@section('scripts')
+    </div>
 
+{{-- javascript 시작 --}}
+    <script>
+
+    const deleteUrl = "{{ route('comment.delete') }}";
+    function confirmDelete(commentId) {
+        if (confirm('댓글을 삭제하시겠습니까?')) {
+            const formId = document.getElementById(`deleteForm${commentId}`);
+            formId.setAttribute('action', deleteUrl);
+            formId.submit();
+        }
+    }
+
+    function editComment(commentId) {
+        const commentSpan = document.getElementById(`comment${commentId}`);
+        const editButton = document.getElementById(`edit${commentId}`);
+
+        if (commentSpan && editButton) {
+            const commentText = commentSpan.innerText;
+            const inputElement = document.createElement('input');
+            inputElement.type = 'text';
+            inputElement.value = commentText;
+            inputElement.name = `comment${commentId}`;
+            inputElement.classList.add('form-control');
+
+            commentSpan.innerText = '';
+            commentSpan.appendChild(inputElement);
+
+            editButton.innerText = '저장';
+            editButton.onclick = () => saveComment(commentId);
+        }
+    }
+
+
+    function saveComment(commentId) {
+        const commentSpan = document.getElementById(`comment${commentId}`);
+        const editButton = document.getElementById(`edit${commentId}`);
+        const inputElement = commentSpan.querySelector('input');
+
+        if (inputElement) {
+            const commentText = inputElement.value;
+            // 여기서 AJAX 요청을 통해 수정된 댓글을 서버에 저장할 수 있습니다.
+
+            commentSpan.innerText = commentText;
+            editButton.innerText = '수정';
+            editButton.onclick = () => editComment(commentId);
+        }
+    }
+
+
+    </script>
 @endsection
- --}}
 
 

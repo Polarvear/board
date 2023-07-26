@@ -59,6 +59,12 @@ Route::get('/user-info', [App\Http\Controllers\JobsController::class, 'index'])-
 
 //댓글등록
 Route::post('/comments/store', [App\Http\Controllers\CommentsController::class, 'store'])->name('comment.add');
+
+//댓글 삭제
+Route::post('/comments/destroy', [App\Http\Controllers\CommentsController::class, 'destroy'])->name('comment.delete');
+
+
+// Route::post('/comments/delete', [App\Http\Controllers\CommentsController::class, 'delete'])->name('comment.delete');
 // Route::post('/comments/store', 'App\Http\Controllers\CommentsController@store')->name('comment.add');
 
 Auth::routes();
