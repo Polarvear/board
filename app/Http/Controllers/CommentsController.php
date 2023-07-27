@@ -99,7 +99,31 @@ class CommentsController extends Controller
      */
     public function update(Request $request, comments $comments)
     {
-        //
+
+        $requestDataId = $request->commentId;
+        $requestDataText = $request->commentText;
+
+
+        try {
+            // 오류가 발생할 수 있는 코드
+            // 해당 commentId에 해당하는 레코드를 업데이트
+            $comment = comments::where('id', $requestDataId)->first();
+            if (!$comment) {
+                return response()->json(['error' => '해당 댓글을 찾을 수 없습니다.'], 404);
+            }
+
+            // 댓글 내용을 업데이트
+            $comment->comments = $requestDataText;
+            $comment->save();
+        } catch (\Exception $e) {
+            // 오류 처리 및 로그 기록
+            Log::error($e->getMessage());
+            // 브라우저에 오류 메시지를 반환하거나 적절한 응답을 전송
+            return response()->json(['error' => '오류가 발생했습니다.'], 500);
+        }
+
+        // 정상적인 응답을 반환
+        return response()->json(['commentText' => $comment->comments]);
     }
 
     /**
@@ -121,5 +145,10 @@ class CommentsController extends Controller
         // 댓글 삭제
         DB::table('comments')->where('id', $commentId)->delete();
         return back()->with('success', '댓글이 성공적으로 삭제되었습니다.');
+    }
+
+    public function status(Request $request, comment $comment)
+    {
+        dd('dd');
     }
 }

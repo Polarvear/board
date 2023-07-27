@@ -62,7 +62,10 @@ Route::post('/comments/store', [App\Http\Controllers\CommentsController::class, 
 
 //댓글 삭제
 Route::post('/comments/destroy', [App\Http\Controllers\CommentsController::class, 'destroy'])->name('comment.delete');
-
+//댓글 수정
+Route::post('/comments/update', [App\Http\Controllers\CommentsController::class, 'update'])->name('comment.update');
+//댓글 상태 변경
+Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status');
 
 // Route::post('/comments/delete', [App\Http\Controllers\CommentsController::class, 'delete'])->name('comment.delete');
 // Route::post('/comments/store', 'App\Http\Controllers\CommentsController@store')->name('comment.add');

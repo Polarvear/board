@@ -91,57 +91,8 @@ Array.from(saveBtn).forEach((saveBtn) => {
 });
 
 
-    const confirmBtns = document.querySelectorAll('.confirm-btn');
-
-    confirmBtns.forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            alert('변경');
-            const confirmResult = confirm('변경하시겠습니까?');
-            if (confirmResult == true) {
-                alert('변경');
-                // sendAjaxRequest();
-            } else {
-                alert('취소');
-            }
-
-        });
-    });
 
 
-
-
-    function sendAjaxRequest(url) {
-    const requestData = {
-        // 데이터를 필요한 형식으로 구성
-        // 예시: { key1: value1, key2: value2, ... }
-        // 키와 값은 서버와의 약속된 형식에 따라 구성해야 합니다.
-    };
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        _token: '{{ csrf_token() }}'
-        body: JSON.stringify(requestData),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('오류가 발생했습니다.');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // 서버 응답에 따른 추가적인 로직 처리
-        // console.log(data);
-        alert('변경이 완료되었습니다.');
-    })
-    .catch(error => {
-        // 오류 처리
-        console.error(error);
-        alert('오류가 발생했습니다.');
-    });
-}
 </script>
 
 </body>
