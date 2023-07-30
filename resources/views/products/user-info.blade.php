@@ -128,6 +128,12 @@
         <p>
             댓글 : <span id="comment{{ $comment->id }}">{{ $comment->comments }}</span>
             <div class="btns">
+                <form action="{{route('comment.status1')}}" method="POST" id="" enctype="multipart/form-data">
+                    @csrf
+                    {{-- @method('delete') --}}
+                    <input type="hidden" name="comment-id" value="{{ $comment->id }}">
+                    <button type="submit" class="btn btn-danger">확인{{ $comment->status }}</button>
+                </form>
                 <button type="" class="btn btn-success confirm-btn" name="status-change" value="{{ $comment->status }}/{{$comment->id}}">확인{{ $comment->status }}</button>
                 @if (Auth::user()->type != 'user') {{-- 수정 삭제 버튼은 user가 아닐경우 보임 //타입 따라 다르게 --}}
                 <button type="" class="btn btn-primary" id="edit{{ $comment->id }}" onclick="editComment({{ $comment->id }})" type="submit">수정</button>
@@ -217,9 +223,7 @@
     }
 
 
-
-
-
+    {{--
     const confirmBtns = document.querySelectorAll('.confirm-btn');
 
     confirmBtns.forEach((btn) => {
@@ -231,37 +235,40 @@
 
 
             if (confirm('진행하시겠습니까?')) {
-            fetch("{{ route('comment.status') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({
-                    commentStatus: commentStatus,
-                    commentId: commentId
+                fetch("{{ route('comment.status') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        commentStatus: commentStatus,
+                        commentId: commentId
+                    })
                 })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to change comment status');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // 서버에서 반환한 데이터를 처리하는 코드
-            })
-            .catch(error => {
-                console.error(error);
-                alert('error');
-                // location.reload();
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to change comment status');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // 서버에서 반환한 데이터를 처리하는 코드
+                })
+                .catch(error => {
+                    console.error(error);
+                    // alert('error');
+                    // location.reload();
+                });
+
             } else {
 
             }
 
         });
     });
+    --}}
     </script>
 @endsection
 

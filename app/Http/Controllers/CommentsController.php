@@ -65,7 +65,7 @@ class CommentsController extends Controller
             // exit;
             return redirect()->back();
         }
-    }
+    } //end store
 
 
     /**
@@ -124,7 +124,7 @@ class CommentsController extends Controller
 
         // 정상적인 응답을 반환
         return response()->json(['commentText' => $comment->comments]);
-    }
+    } //end update
 
     /**
      * Remove the specified resource from storage.
@@ -145,10 +145,34 @@ class CommentsController extends Controller
         // 댓글 삭제
         DB::table('comments')->where('id', $commentId)->delete();
         return back()->with('success', '댓글이 성공적으로 삭제되었습니다.');
-    }
+    } //end destroy
 
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\comments  $comments
+     * @return \Illuminate\Http\Response
+     */
     public function status(Request $request, comment $comment)
     {
-        dd('dd');
+
+        dd($request->all());
+        exit;
+        /*
+        $commentStatus = $request->input('commentStatus');
+        $commentId = $request->input('commentId');
+
+
+        return response()->json(['message' => '코멘트 상태가 성공적으로 업데이트되었습니다']);
+        */
+    }  //end status
+
+
+    public function status1(Request $request, comment $comment)
+    {
+        dd($request->all());
+        exit;
     }
 }

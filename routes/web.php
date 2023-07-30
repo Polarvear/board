@@ -5,6 +5,8 @@ use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\UploadController;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\GoogleAuthController;
+use \App\Http\Controllers\CommentsController;
+use App\Models\comments;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,6 +68,9 @@ Route::post('/comments/destroy', [App\Http\Controllers\CommentsController::class
 Route::post('/comments/update', [App\Http\Controllers\CommentsController::class, 'update'])->name('comment.update');
 //댓글 상태 변경
 Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status');
+Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status1');
+//댓글 상태 변경
+// Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status');
 
 // Route::post('/comments/delete', [App\Http\Controllers\CommentsController::class, 'delete'])->name('comment.delete');
 // Route::post('/comments/store', 'App\Http\Controllers\CommentsController@store')->name('comment.add');
