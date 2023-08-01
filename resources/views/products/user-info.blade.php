@@ -20,6 +20,9 @@
 
         .btns {
         }
+        .submit-btn {
+            margin-top:10px;
+        }
 
 
 
@@ -98,15 +101,19 @@
     </div>
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
-            {{-- 데이터 : {{ print_r($data) }} --}}
+            소속(팀) : {{ $userAllData->team }}
         </div>
     </div>
 
+    {{--
+
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
-            {{-- 유저 데이터 : {{ dd($user) }} --}}
+            유저 데이터 : {{ dd($user) }}
         </div>
     </div>
+
+     --}}
 {{--  댓글작성   --}}
 {{-- @auth() --}}
     <div class="w-4/5 mx-auto mt-6 text-right">
@@ -117,7 +124,7 @@
             <input type="hidden" name="member_id" value="{{ $flow }}">
             <br>
             <textarea name="commentStory" class="border border-blue-300 resize-none w-full h-32 comment-area"></textarea>
-            <button type="submit" class="btn btn-primary">등록하기</button>
+            <button type="submit" class="btn btn-primary submit-btn">등록하기</button>
         </form>
     </div>
     {{-- @endauth --}}
@@ -126,33 +133,34 @@
         @foreach ($comments as $comment)
         @if ($comment->product_id == $productId && $comment->flow_num == $flow) {{-- 해당 댓글만 보여주기--}}
         <p>
-            댓글 : <span id="comment{{ $comment->id }}">{{ $comment->comments }}</span>
-            <div class="btns">
-                <form action="{{route('comment.status1')}}" method="POST" id="" enctype="multipart/form-data">
-                    @csrf
-                    {{-- @method('delete') --}}
-                    <input type="hidden" name="comment-id" value="{{ $comment->id }}">
-                    <button type="submit" class="btn btn-danger">확인{{ $comment->status }}</button>
-                </form>
-                <button type="" class="btn btn-success confirm-btn" name="status-change" value="{{ $comment->status }}/{{$comment->id}}">확인{{ $comment->status }}</button>
-                @if (Auth::user()->type != 'user') {{-- 수정 삭제 버튼은 user가 아닐경우 보임 //타입 따라 다르게 --}}
-                <button type="" class="btn btn-primary" id="edit{{ $comment->id }}" onclick="editComment({{ $comment->id }})" type="submit">수정</button>
-                <form action="" method="POST" id="deleteForm{{ $comment->id }}">
-                    @csrf
-                    {{-- @method('delete') --}}
-                    <input type="hidden" name="comment-id" value="{{ $comment->id }}">
-                    <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $comment->id }})">삭제</button>
-                </form>
-                @endif
-            </div>
+            요청사항 : <span id="comment{{ $comment->id }}">{{ $comment->comments }}</span>
         </p>
-        @endif
-        @endforeach
     </div>
-
+    <div class="btns">
+        {{-- 버튼색 변경 start --}}
+        @if ($comment->status == 1)
+        <button type="button" class="btn btn-success ing-btn" name="status-change" value="{{ $comment->status }}/{{$comment->id}}">진행중</button>
+        @elseif ($comment->status == 2)
+        <button type="button" class="btn btn-warning done-btn" name="status-change" disabled value="{{ $comment->status }}/{{$comment->id}}">완료</button>
+        @else
+        <button type="button" class="btn btn-dark confirm-btn" name="status-change" value="{{ $comment->status }}/{{$comment->id}}">확인</button>
+        @endif
+        {{-- 버튼 색 변경 end --}}
+        @if (Auth::user()->type != 'user') {{-- 수정 삭제 버튼은 user가 아닐경우 보임 //타입 따라 다르게 --}}
+        <button type="" class="btn btn-primary" id="edit{{ $comment->id }}" onclick="editComment({{ $comment->id }})" type="submit">수정</button>
+        <form action="" method="POST" id="deleteForm{{ $comment->id }}">
+            @csrf
+            {{-- @method('delete') --}}
+            <input type="hidden" name="comment-id" value="{{ $comment->id }}">
+            <button type="button" class="btn btn-danger" onclick="confirmDelete({{ $comment->id }})">삭제</button>
+        </form>
+        @endif
+    </div>
+    @endif
+    @endforeach
 {{-- javascript 시작 --}}
     <script>
-
+    // 댓글 삭제기능
     const deleteUrl = "{{ route('comment.delete') }}";
     function confirmDelete(commentId) {
         if (confirm('댓글을 삭제하시겠습니까?')) {
@@ -162,6 +170,7 @@
         }
     }
 
+    // 댓글 수정기능
     function editComment(commentId) {
         const commentSpan = document.getElementById(`comment${commentId}`);
         const editButton = document.getElementById(`edit${commentId}`);
@@ -223,7 +232,7 @@
     }
 
 
-    {{--
+    //댓글 확인 기능
     const confirmBtns = document.querySelectorAll('.confirm-btn');
 
     confirmBtns.forEach((btn) => {
@@ -248,13 +257,14 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to change comment status');
+                        throw new Error('Failed change to comment status');
                     }
                     return response.json();
                 })
                 .then(data => {
                     console.log(data);
                     // 서버에서 반환한 데이터를 처리하는 코드
+                    location.reload();
                 })
                 .catch(error => {
                     console.error(error);
@@ -268,7 +278,57 @@
 
         });
     });
-    --}}
+
+
+
+
+    const ingBtns = document.querySelectorAll(".ing-btn");
+
+    ingBtns.forEach((btn) => { //진행중 버튼 이벤트 등록
+        btn.addEventListener('click', (e) => {
+            console.log(btn.value);
+            const value = btn.value.split('/');
+            const commentStatus = value[0];
+            const commentId = value[1];
+
+
+            if (confirm('완료하시겠습니까?')) {
+                fetch("{{ route('comment.statusChange') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        commentStatus: commentStatus,
+                        commentId: commentId
+                    })
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed change to comment status');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    // 서버에서 반환한 데이터를 처리하는 코드
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error(error);
+                    // alert('error');
+                    // location.reload();
+                });
+
+            } else {
+
+            }
+        })
+    })
+
+
+
     </script>
 @endsection
 

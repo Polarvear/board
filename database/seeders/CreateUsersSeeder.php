@@ -17,33 +17,57 @@ class CreateUsersSeeder extends Seeder
     {
         $users = [
             [
-               'name'=>'kang',
-               'email'=>'test1@test.com',
-               'type'=>1,
-               'password'=> bcrypt('123456'),
-            ],
-            [
-                'name'=>'gong',
-                'email'=>'test2@test.com',
+                'name'=>'김길환',
+                'email'=>'test7@test.com',
                 'type'=>0,
                 'password'=> bcrypt('123456'),
              ],
              [
-                'name'=>'kim',
-                'email'=>'test3@test.com',
+                'name'=>'김한길',
+                'email'=>'test8@test.com',
                 'type'=>0,
                 'password'=> bcrypt('123456'),
              ],
              [
-                'name'=>'hong',
-                'email'=>'test4@test.com',
+                'name'=>'박진영',
+                'email'=>'test9@test.com',
                 'type'=>2,
                 'password'=> bcrypt('123456'),
              ],
              [
-                'name'=>'park',
-                'email'=>'test5@test.com',
+                'name'=>'홍진영',
+                'email'=>'test10@test.com',
                 'type'=>2,
+                'password'=> bcrypt('123456'),
+             ],
+             [
+                'name'=>'이수만',
+                'email'=>'test11@test.com',
+                'type'=>0,
+                'password'=> bcrypt('123456'),
+             ],
+             [
+                'name'=>'홍진영',
+                'email'=>'test12@test.com',
+                'type'=>1,
+                'password'=> bcrypt('123456'),
+             ],
+             [
+                'name'=>'김영진',
+                'email'=>'test13@test.com',
+                'type'=>2,
+                'password'=> bcrypt('123456'),
+             ],
+             [
+                'name'=>'한량',
+                'email'=>'test14@test.com',
+                'type'=>0,
+                'password'=> bcrypt('123456'),
+             ],
+             [
+                'name'=>'동방삭',
+                'email'=>'test15@test.com',
+                'type'=>1,
                 'password'=> bcrypt('123456'),
              ],
         ];

@@ -134,7 +134,6 @@ class CommentsController extends Controller
      */
     public function destroy(Request $request)
     {
-
         $commentId = $request->input('comment-id');
         $comment = DB::table('comments')->find($commentId);
 
@@ -155,24 +154,64 @@ class CommentsController extends Controller
      * @param  \App\Models\comments  $comments
      * @return \Illuminate\Http\Response
      */
-    public function status(Request $request, comment $comment)
+    public function status(Request $request, comments $comments)
     {
+        // dd($request->all());
+        $commentStatus = $request->commentStatus;
+        $commentId = $request->commentId;
 
-        dd($request->all());
-        exit;
-        /*
-        $commentStatus = $request->input('commentStatus');
-        $commentId = $request->input('commentId');
+        try {
+            // 오류가 발생할 수 있는 코드
+            // 해당 commentId에 해당하는 레코드를 업데이트
+            $comment = comments::where('id', $commentId)->first();
+            if (!$comment) {
+                return response()->json(['error' => '해당 댓글을 찾을 수 없습니다.'], 404);
+            }
 
+            // 댓글 내용을 업데이트
+            $comment->status = 1;
+            $comment->save();
+        } catch (\Exception $e) {
+            // 오류 처리 및 로그 기록
+            Log::error($e->getMessage());
+            // 브라우저에 오류 메시지를 반환하거나 적절한 응답을 전송
+            return response()->json(['error' => '오류가 발생했습니다.'], 500);
+        }
 
-        return response()->json(['message' => '코멘트 상태가 성공적으로 업데이트되었습니다']);
-        */
+        // return back()->with('success', '댓글이 성공적으로 삭제되었습니다.');
+        return response()->json(['status' => $comment->status]);
     }  //end status
 
 
-    public function status1(Request $request, comment $comment)
+
+
+    public function statusChange(Request $request, comments $comments)
     {
-        dd($request->all());
-        exit;
-    }
+        // dd($request->all());
+        $commentStatus = $request->commentStatus;
+        $commentId = $request->commentId;
+
+        try {
+            // 오류가 발생할 수 있는 코드
+            // 해당 commentId에 해당하는 레코드를 업데이트
+            $comment = comments::where('id', $commentId)->first();
+            if (!$comment) {
+                return response()->json(['error' => '해당 댓글을 찾을 수 없습니다.'], 404);
+            }
+
+            // 댓글 내용을 업데이트
+            $comment->status = 2;
+            $comment->save();
+        } catch (\Exception $e) {
+            // 오류 처리 및 로그 기록
+            Log::error($e->getMessage());
+            // 브라우저에 오류 메시지를 반환하거나 적절한 응답을 전송
+            return response()->json(['error' => '오류가 발생했습니다.'], 500);
+        }
+
+        // return back()->with('success', '댓글이 성공적으로 삭제되었습니다.');
+        return response()->json(['status' => $comment->status]);
+    }  //end status
+
+
 }

@@ -7,6 +7,8 @@ use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\GoogleAuthController;
 use \App\Http\Controllers\CommentsController;
 use App\Models\comments;
+use \App\Http\Controllers\MailSendController;
+use \App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -68,7 +70,8 @@ Route::post('/comments/destroy', [App\Http\Controllers\CommentsController::class
 Route::post('/comments/update', [App\Http\Controllers\CommentsController::class, 'update'])->name('comment.update');
 //댓글 상태 변경
 Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status');
-Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status1');
+Route::post('/comments/statusChange', [App\Http\Controllers\CommentsController::class, 'statusChange'])->name('comment.statusChange');
+// Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status1');
 //댓글 상태 변경
 // Route::post('/comments/status', [App\Http\Controllers\CommentsController::class, 'status'])->name('comment.status');
 
@@ -126,3 +129,25 @@ Route::get('/auth/naver/callback', 'Auth\NaverController@callback')->name('auth.
 
 Route::get('auth/google', [App\Http\Controllers\GoogleAuthController::class,'redirect'])->name('google-auth');
 Route::get('auth/google/call-back', [App\Http\Controllers\GoogleAuthController::class,'callbackGoogle']);
+
+//메일 관련 Route들
+
+// 메일 전송을 위한 페이지로 이동한다.
+Route::get('/mailSend', [App\Http\Controllers\MailSendController::class,'mailSend'])->name('mailSend');
+
+// 메일 전송 submit
+Route::post('/mailSendSubmit', [App\Http\Controllers\MailSendController::class,'mailSendSubmit'])->name('mailSendSubmit');
+
+
+//메일 관련 Route
+Route::get('sendMail', [App\Http\Controllers\MailController::class, 'sendMail'])->name('mail');
+
+Route::get('sendbasicemail', [App\Http\Controllers\MailController::class, 'basic_email']);
+Route::get('sendhtmlemail', [App\Http\Controllers\MailController::class, 'html_email']);
+Route::get('sendattachmentemail', [App\Http\Controllers\MailController::class, 'attachment_email']);
+
+
+
+Route::post('/sendMailSubmit', [App\Http\Controllers\MailController::class,'sendMailSubmit'])->name('mail.send');
+
+

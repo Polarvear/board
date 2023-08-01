@@ -27,6 +27,9 @@
         display: flex;
         justify-content: center;
     }
+    .flow-status {
+        border:1px solid red;
+    }
     </style>
 
 
@@ -110,13 +113,17 @@
             <td class="inner-td" style="">
                 <div class="inner-div" style="">
                     @if ($product->flow_1_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_1_email }}&product_id={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">{{ $product->flow_1 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_1_email }}&product_id={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">{{ $product->flow_1 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">등록</a>
                     @endif
 
                     @if ($product->flow_2_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_2_email }}&product_id={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag">{{ $product->flow_2 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_2_email }}&product_id={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag">{{ $product->flow_2 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
@@ -125,13 +132,17 @@
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_3_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_3_email }}&product_id={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">{{ $product->flow_3 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_3_email }}&product_id={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">{{ $product->flow_3 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">등록</a>
                     @endif
 
                     @if ($product->flow_4_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_4_email }}&product_id={{ $product->id }}&flow=4" class="{{ $product->id }} a-tag">{{ $product->flow_4 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_4_email }}&product_id={{ $product->id }}&flow=4" class="{{ $product->id }} a-tag">{{ $product->flow_4 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=4" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
@@ -140,13 +151,17 @@
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_5_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_5_email }}&product_id={{ $product->id }}&flow=5" class="{{ $product->id }} a-tag">{{ $product->flow_5 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_5_email }}&product_id={{ $product->id }}&flow=5" class="{{ $product->id }} a-tag">{{ $product->flow_5 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">등록</a>
                     @endif
 
                     @if ($product->flow_6_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_6_email }}&product_id={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag">{{ $product->flow_6 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_6_email }}&product_id={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag">{{ $product->flow_6 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
@@ -155,7 +170,9 @@
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_7_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_7_email }}&product_id={{ $product->id }}&flow=7" class="{{ $product->id }} a-tag">{{ $product->flow_7 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_7_email }}&product_id={{ $product->id }}&flow=7" class="{{ $product->id }} a-tag">{{ $product->flow_7 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=7" class="{{ $product->id }} a-tag">등록</a>
                     @endif
@@ -170,13 +187,17 @@
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_9_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_9_email }}&product_id={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">{{ $product->flow_9 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_9_email }}&product_id={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">{{ $product->flow_9 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">등록</a>
                     @endif
 
                     @if ($product->flow_10_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_10_email }}&product_id={{ $product->id }}&flow=10" class="{{ $product->id }} a-tag">{{ $product->flow_10 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_10_email }}&product_id={{ $product->id }}&flow=10" class="{{ $product->id }} a-tag">{{ $product->flow_10 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=10" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
@@ -185,13 +206,17 @@
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_11_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_11_email }}&product_id={{ $product->id }}&flow=11" class="{{ $product->id }} a-tag">{{ $product->flow_11 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_11_email }}&product_id={{ $product->id }}&flow=11" class="{{ $product->id }} a-tag">{{ $product->flow_11 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">등록</a>
                     @endif
 
                     @if ($product->flow_12_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_12_email }}&product_id={{ $product->id }}&flow=12" class="{{ $product->id }} a-tag">{{ $product->flow_12 }}</a>
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_12_email }}&product_id={{ $product->id }}&flow=12" class="{{ $product->id }} a-tag">{{ $product->flow_12 }}</a>
+                    </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=12" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
