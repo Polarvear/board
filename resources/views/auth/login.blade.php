@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+
+@yield('head')
+    <style>
+        .google-login-btn {
+            display: flex;
+            justify-content: center;
+        }
+
+    </style>
+
+
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -57,16 +70,23 @@
                                     {{ __('Login') }}
                                 </button>
 
+
+
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
                             </div>
+
+                            <div class="flex items-center justify-end mt-4 google-login-btn">
+                                <a href="{{ route('google-auth') }}">
+                                    <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png">
+                                </a>
+                            </div>
                         </div>
                     </form>
                     <a href="{{ route('auth.naver.redirect') }}">네이버로 로그인</a>
-                    <a href="{{ route('google-auth') }}">구글로 로그인</a>
                 </div>
             </div>
         </div>

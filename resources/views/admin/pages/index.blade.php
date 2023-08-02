@@ -27,8 +27,9 @@
         display: flex;
         justify-content: center;
     }
-    .flow-status {
-        border:1px solid red;
+
+    .table td, .table th {
+        padding:0px !important;
     }
     </style>
 
@@ -53,28 +54,28 @@
 </div> --}}
 <table class="table table-striped table-hover" >
     <colgroup>
-        <col width="10%"/>
-        <col width=""/>
-        <col width=""/>
-        <col width=""/>
-        <col width=""/>
-        <col width=""/>
-        <col width=""/>
-        <col width=""/>
-        <col width=""/>
+        <col width="50px" />
+        <col width="150px"/>
+        <col width="150px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
         <col width=""/>
     </colgroup>
     <thead>
-    <tr>
-        <th scope="col">연번</th>
-        <th scope="col">이름</th>
-        <th scope="col" style="width:177px;">영문이름</th>
-        <th scope="col">기획</th>
-        <th scope="col">획득</th>
-        <th scope="col">모델링</th>
-        <th scope="col">맵핑</th>
-        <th scope="col">게임엔진</th>
-        <th scope="col">배포</th>
+    <tr height="0">
+        <th scope="col" style="text-align: center;">연번</th>
+        <th scope="col" style="text-align: center;">이름</th>
+        <th scope="col" style="text-align: center;">영문이름</th>
+        <th scope="col" style="text-align: center;">기획</th>
+        <th scope="col" style="text-align: center;">획득</th>
+        <th scope="col" style="text-align: center;">모델링</th>
+        <th scope="col" style="text-align: center;">맵핑</th>
+        <th scope="col" style="text-align: center;">게임엔진</th>
+        <th scope="col" style="text-align: center;">배포</th>
         <th scope="col"></th>
     </tr>
     </thead>
@@ -83,9 +84,9 @@
     {{-- Product Controller의 index에서 넘긴 $products(product 데이터 리스트)를 출력해줍니다. --}}
     @foreach ($products as $key => $product)
         <tr>
-            <th scope="row">{{$key+1 + (($products->currentPage()-1) * 10)}}</th>
+            <th scope="row" style="display:flex; justify-content:center; border:none; border-top: 1px solid black;">{{$key+1 + (($products->currentPage()-1) * 10)}}</th>
             <td style="">
-                <a href="{{route("products.show", $product->id)}}">{{$product->name}}</a>
+                <a style="display:flex; justify-content:center;" href="{{route("products.show", $product->id)}}">{{$product->name}}</a>
             </td>
             <td>
 
@@ -106,9 +107,6 @@
 
 
 
-
-
-
             </td><!--영문이름-->
             <td class="inner-td" style="">
                 <div class="inner-div" style="">
@@ -119,7 +117,10 @@
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">등록</a>
                     @endif
-
+                </div>
+            </td><!--기획-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
                     @if ($product->flow_2_email)
                     <div class="flow-status">
                         <a href="{{ route('user-info') }}?manager={{ $product->flow_2_email }}&product_id={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag">{{ $product->flow_2 }}</a>
@@ -128,7 +129,7 @@
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
                 </div>
-            </td><!--기획-->
+            </td><!--획득-->
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_3_email)
@@ -138,6 +139,10 @@
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">등록</a>
                     @endif
+                </div>
+            </td><!--모델링-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
 
                     @if ($product->flow_4_email)
                     <div class="flow-status">
@@ -147,7 +152,7 @@
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=4" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
                 </div>
-            </td><!--획득-->
+            </td><!--맵핑-->
             <td class="inner-td">
                 <div class="inner-div" style="">
                     @if ($product->flow_5_email)
@@ -157,7 +162,10 @@
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">등록</a>
                     @endif
-
+                </div>
+            </td><!--게임엔진-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
                     @if ($product->flow_6_email)
                     <div class="flow-status">
                         <a href="{{ route('user-info') }}?manager={{ $product->flow_6_email }}&product_id={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag">{{ $product->flow_6 }}</a>
@@ -165,76 +173,22 @@
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag" >등록</a>
                     @endif
-                </div>
-            </td><!--모델링-->
-            <td class="inner-td">
-                <div class="inner-div" style="">
-                    @if ($product->flow_7_email)
-                    <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_7_email }}&product_id={{ $product->id }}&flow=7" class="{{ $product->id }} a-tag">{{ $product->flow_7 }}</a>
-                    </div>
-                    @else
-                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=7" class="{{ $product->id }} a-tag">등록</a>
-                    @endif
 
-                    @if ($product->flow_8_email)
-                    <a href="{{ route('user-info') }}?manager={{ $product->flow_8_email }}&product_id={{ $product->id }}&flow=8" class="{{ $product->id }} a-tag">{{ $product->flow_8 }}</a>
-                    @else
-                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=8" class="{{ $product->id }} a-tag" >등록</a>
-                    @endif
-                </div>
-            </td><!--맵핑-->
-            <td class="inner-td">
-                <div class="inner-div" style="">
-                    @if ($product->flow_9_email)
-                    <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_9_email }}&product_id={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">{{ $product->flow_9 }}</a>
-                    </div>
-                    @else
-                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">등록</a>
-                    @endif
-
-                    @if ($product->flow_10_email)
-                    <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_10_email }}&product_id={{ $product->id }}&flow=10" class="{{ $product->id }} a-tag">{{ $product->flow_10 }}</a>
-                    </div>
-                    @else
-                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=10" class="{{ $product->id }} a-tag" >등록</a>
-                    @endif
-                </div>
-            </td><!--게임엔진-->
-            <td class="inner-td">
-                <div class="inner-div" style="">
-                    @if ($product->flow_11_email)
-                    <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_11_email }}&product_id={{ $product->id }}&flow=11" class="{{ $product->id }} a-tag">{{ $product->flow_11 }}</a>
-                    </div>
-                    @else
-                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=9" class="{{ $product->id }} a-tag">등록</a>
-                    @endif
-
-                    @if ($product->flow_12_email)
-                    <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_12_email }}&product_id={{ $product->id }}&flow=12" class="{{ $product->id }} a-tag">{{ $product->flow_12 }}</a>
-                    </div>
-                    @else
-                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=12" class="{{ $product->id }} a-tag" >등록</a>
-                    @endif
                 </div>
             </td><!--배포-->
 
             <!-- 수정 & 삭제 부분 주석처리 -->
             <td>
-              <div style="display:flex;">
+              <div style="display:flex; height:25px;" >
                   <!--button class="save-btn {{$product->id}}">저장</button-->
                   <!-- <input type="submit" class="save-btn {{$product->id}}"/> -->
-                  <div>{{$product->id}}</div>
+                  {{-- <div>{{$product->id}}</div> --}}
                 <!-- </form> -->
                 <form action="{{route('products.destroy', $product->id)}}" method="post" style="margin-left: 10px;">
                     {{-- delete method와 csrf 처리필요 --}}
                     @method('delete')
                     @csrf
-                    <input class="btn btn-danger" onclick="return confirm('정말로 삭제하겠습니까?')" type="submit" value="프로젝트 삭제"/>
+                    <input class="" onclick="return confirm('프로젝트를 삭제하겠습니까?')" type="submit" value="X"/>
                 </form>
               </div>
             </td>

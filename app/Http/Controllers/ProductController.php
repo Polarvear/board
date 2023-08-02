@@ -41,8 +41,18 @@ class ProductController extends Controller
         $files = $request->file('files');
         $paths = [];
 
+        // 첫 번째 파일의 이름을 얻어옵니다.
+        $projectName = $request->name;
+
+        // 첫 번째 파일의 이름을 폴더로 사용하여 폴더를 생성합니다.
+        $folderPath = public_path('docs/' . $projectName);
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0755, true);
+        }
+
+
         foreach ($files as $file) {
-            $path = $file->store('docs');
+            $path = $file->storeAs('docs/' . $projectName, $file->getClientOriginalName());
             $paths[] = $path;
         }
 

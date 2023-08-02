@@ -199,8 +199,14 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        //Social 로그인 providers
+        //Social 로그인 providers 구글 로그인
         Laravel\Socialite\SocialiteServiceProvider::class,
+
+        //네이버 로그인 구현
+        SocialiteProviders\Manager\ServiceProvider::class,
+//        Laravel\Socialite\SocialiteServiceProvider::class,
+
+
 
     ],
 
