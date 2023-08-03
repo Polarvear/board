@@ -167,8 +167,6 @@ class ProductController extends Controller
     {
         $folderName = "docs\\". $name;
 
-        // $folderName = 'example_folder'; // 다운로드할 폴더의 이름
-
         // 압축 파일 생성을 위한 임시 파일 경로
         $zipName = 'app\docs\\' .$name. '.zip';
         $zipFileName = storage_path($zipName);
@@ -182,21 +180,16 @@ class ProductController extends Controller
             return response()->json(['error' => 'Failed to create zip file'], 500);
         }
 
-        // 압축 파일 다운로드
+        // 압축 파일 다운로드 & 다운로드 후 임시 파일 삭제
         return response()->download($zipFileName)->deleteFileAfterSend(true);
     }
 
     private function addFolderToZip($folderName, $zip)
     {
 
-    $folderName = "app\\".$folderName;
-    // print_r($folderName);
-    // exit;
-    // $folderPath = storage_path($folderName);
-    $folderPath = storage_path($folderName);
+    $folderNameRoot = "app\\".$folderName;
+    $folderPath = storage_path($folderNameRoot);
 
-    // print_r($folderPath);
-    // exit;
     $files = new \RecursiveIteratorIterator(
         new \RecursiveDirectoryIterator($folderPath),
         \RecursiveIteratorIterator::LEAVES_ONLY
@@ -205,10 +198,11 @@ class ProductController extends Controller
     foreach ($files as $file) {
         if (!$file->isDir()) {
             $filePath = $file->getRealPath();
-            $relativePath = substr($filePath, strlen(storage_path()) + 1);
+            $relativePath = substr($filePath, strlen($folderPath) + 1);
             $zip->addFile($filePath, $relativePath);
             }
         }
+
     }
 
 
