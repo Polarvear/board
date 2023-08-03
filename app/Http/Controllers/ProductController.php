@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use ZipArchive;
+
+
 
 class ProductController extends Controller
 {
   private $product;
 
-  public function __construct(Product $product){
+  public function __construct(Product $product)
+  {
       // Laravel 의 IOC(Inversion of Control) 입니다
       // 일단은 이렇게 모델을 가져오는 것이 추천 코드라고 생각하시면 됩니다.
       $this->product = $product;
@@ -21,7 +26,8 @@ class ProductController extends Controller
     return view('admin.pages.index', compact('products')); //
   }
 
-  public function create(){
+  public function create()
+  {
 
     return view('products.create');
   }
@@ -69,7 +75,8 @@ class ProductController extends Controller
 }
 
   // 상세 페이지
-  public function show(Product $product){
+  public function show(Product $product)
+  {
   // show 에 경우는 해당 페이지의 모델 값이 파라미터로 넘어옵니다.
     return view('products.show', compact('product'));
   }
@@ -78,7 +85,8 @@ class ProductController extends Controller
     return view('products.edit', compact('product'));
   }
 
-  public function update(Request $request, Product $product){
+  public function update(Request $request, Product $product)
+  {
     // dd($request->all());
 
     // dd($product);
@@ -92,12 +100,14 @@ class ProductController extends Controller
     return redirect()->route('products.index', $product);
   }
 
-  public function destroy(Product $product){
+  public function destroy(Product $product)
+  {
     $product->delete();
     return redirect()->route('products.index');
   }
 
-  public function ajaxRequest(Product $product, Request $request) {
+  public function ajaxRequest(Product $product, Request $request)
+  {
     $requestFlowListJson = $request->input('flowList');
     $requestnumberValue = $request->input('numberValue');
 
@@ -124,5 +134,84 @@ class ProductController extends Controller
 
     return response()->json(['message' => 'Update successful']);
   }
+
+  /**
+ * download file
+ *
+ * @param \Illuminate\Http\Request  $request
+ *
+ * @return \Illuminate\Auth\Access\Response
+ */
+
+    /*
+    public function download($name)
+    {
+
+        $fileRoute = "docs\\". $name;
+
+        try {
+            $myFile = storage_path($fileRoute);
+            return response()->download($myFile);
+
+        } catch (\Excepton $e) {
+
+            abort(404);
+        }
+
+
+    }
+    */
+
+
+    public function download($name)
+    {
+        $folderName = "docs\\". $name;
+
+        // $folderName = 'example_folder'; // 다운로드할 폴더의 이름
+
+        // 압축 파일 생성을 위한 임시 파일 경로
+        $zipName = 'app\docs\\' .$name. '.zip';
+        $zipFileName = storage_path($zipName);
+
+        // 폴더 압축
+        $zip = new ZipArchive();
+        if ($zip->open($zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE)) {
+            $this->addFolderToZip($folderName, $zip);
+            $zip->close();
+        } else {
+            return response()->json(['error' => 'Failed to create zip file'], 500);
+        }
+
+        // 압축 파일 다운로드
+        return response()->download($zipFileName)->deleteFileAfterSend(true);
+    }
+
+    private function addFolderToZip($folderName, $zip)
+    {
+
+    $folderName = "app\\".$folderName;
+    // print_r($folderName);
+    // exit;
+    // $folderPath = storage_path($folderName);
+    $folderPath = storage_path($folderName);
+
+    // print_r($folderPath);
+    // exit;
+    $files = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($folderPath),
+        \RecursiveIteratorIterator::LEAVES_ONLY
+    );
+
+    foreach ($files as $file) {
+        if (!$file->isDir()) {
+            $filePath = $file->getRealPath();
+            $relativePath = substr($filePath, strlen(storage_path()) + 1);
+            $zip->addFile($filePath, $relativePath);
+            }
+        }
+    }
+
+
+
 
 }

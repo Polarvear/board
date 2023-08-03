@@ -46,6 +46,12 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
+//다운로드 기능
+Route::get('/download/{name}', [ProductController::class, 'download'])->name('products.download');
+
+
+
+
 //아래 두개 라우트 실험용 라우트임
 Route::view('upload', 'upload');
 Route::post('upload', [UploadController::class, 'index']);
