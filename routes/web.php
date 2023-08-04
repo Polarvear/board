@@ -46,9 +46,12 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
-//다운로드 기능
+//다운로드 기능(일괄 다운로드)
 Route::get('/download/{name}', [ProductController::class, 'download'])->name('products.download');
-
+//다운로드 기능(개별 다운로드)
+Route::get('/downloadFile/{foldername}/{filename}', [ProductController::class, 'downloadFile'])->name('products.downloadFile');
+//이미지 미리보기 기능
+Route::get('previewImage/{foldername}/{filename}', [ProductController::class, 'previewImage'])->name('products.previewImage');
 
 
 

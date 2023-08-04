@@ -71,14 +71,18 @@ class ProductController extends Controller
         return redirect()->route('admin.pages.index');
     }
 
-    return response()->json(['message' => '파일 업로드 실패']);
+    return response()->json(['message' => 'failed file upload']);
 }
 
   // 상세 페이지
-  public function show(Product $product)
+  public function show(Product $product, Request $request)
   {
-  // show 에 경우는 해당 페이지의 모델 값이 파라미터로 넘어옵니다.
-    return view('products.show', compact('product'));
+    // show 에 경우는 해당 페이지의 모델 값이 파라미터로 넘어옵니다.
+
+    $folderName = 'docs/' . $product->name;
+    $files = Storage::files($folderName);
+
+    return view('products.show', compact('product', 'files'));
   }
 
   public function edit(Product $product){
@@ -162,7 +166,7 @@ class ProductController extends Controller
     }
     */
 
-
+    // zip 으로 일괄 다운로드 기능
     public function download($name)
     {
         $folderName = "docs\\". $name;
@@ -205,7 +209,33 @@ class ProductController extends Controller
 
     }
 
+    // 파일 다운로드 기능
+    public function downloadFile($foldername, $filename)
+    {
+
+    $filePath = 'docs/' . $foldername . '/' . $filename;
+
+    if (Storage::exists($filePath)) {
+        return response()->download(storage_path('app/' . $filePath));
+    }
+
+    abort(404, 'File not found');
+    }
 
 
+    // 이미지 미리보기 기능
+    public function previewImage($foldername, $filename)
+    {
+    $filePath = 'docs/' . $foldername . '/' . $filename;
+
+    if (Storage::exists($filePath)) {
+        $fileContents = Storage::get($filePath);
+        $imageType = Storage::mimeType($filePath);
+
+        return response($fileContents)->header('Content-Type', $imageType);
+    }
+
+    abort(404, 'File not found');
+    }
 
 }

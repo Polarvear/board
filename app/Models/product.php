@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class product extends Model
 {
     use HasFactory;
+
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
     protected $fillable = [
       'name', 'content', 'type', 'assets_sort', 'level', 'advisor',
       'flow_1',

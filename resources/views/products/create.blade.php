@@ -46,7 +46,6 @@
         </div>
         <input type="file" name="files[]" multiple>
         <br>
-        <br>
         <button type="submit" class="btn btn-primary">등록하기</button>
         <a href="{{route("admin.pages.index")}}">
           <button type="button" class="btn btn-primary">돌아가기</button>
