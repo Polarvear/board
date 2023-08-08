@@ -6,7 +6,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use ZipArchive;
-
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 
 class ProductController extends Controller
@@ -52,8 +53,8 @@ class ProductController extends Controller
 
         // 첫 번째 파일의 이름을 폴더로 사용하여 폴더를 생성합니다.
         $folderPath = public_path('docs/' . $projectName);
-        if (!file_exists($folderPath)) {
-            mkdir($folderPath, 0755, true);
+        if (!File::exists($folderPath)) {
+            File::makeDirectory($folderPath, 0755, true, true);
         }
 
 
@@ -91,14 +92,36 @@ class ProductController extends Controller
 
   public function update(Request $request, Product $product)
   {
-    // dd($request->all());
 
-    // dd($product);
+    // dd($product->name);
+    // 기존 폴더 이름
+    $oldFolderName = $product->name; //기존 폴더
+    $newFolderName = $request->name; // 바뀔 폴더명
     $request = $request->validate([
         'name' => 'required',
         'content' => 'required',
-        'flow_1' => 'required'
     ]);
+
+
+    if ($oldFolderName !== $newFolderName) {
+
+        File::makeDirectory(storage_path('app/docs/' .$newFolderName), 0755, true, true);
+
+        $oldFolderPath = storage_path('app/docs/' .$oldFolderName);
+        $files = File::allFiles($oldFolderPath);
+        $newFolderPath = storage_path('app/docs/' . $newFolderName);
+
+        foreach ($files as $file) {
+            // 파일 이름 추출
+            $fileName = $file->getFilename();
+            // 이동할 파일의 새 경로 생성
+            $newFilePath = $newFolderPath . '/' . $fileName;
+            // 파일 이동
+            File::move($file->getPathname(), $newFilePath);
+        }
+        File::deleteDirectory(storage_path('app/docs/' . $oldFolderName));
+    }
+
     // $product는 수정할 모델 값이므로 바로 업데이트 해줍시다.
     $product->update($request);
     return redirect()->route('products.index', $product);
@@ -106,6 +129,7 @@ class ProductController extends Controller
 
   public function destroy(Product $product)
   {
+    File::deleteDirectory(storage_path('app/docs/' . $product->name));
     $product->delete();
     return redirect()->route('products.index');
   }
@@ -221,6 +245,15 @@ class ProductController extends Controller
 
     abort(404, 'File not found');
     }
+
+
+    // 파일 다운로드 기능
+    public function deleteFile(Request $request)
+    {
+        Log::info('deleteFile 메서드 호출됨');
+        dd($request->all());
+    }
+
 
 
     // 이미지 미리보기 기능

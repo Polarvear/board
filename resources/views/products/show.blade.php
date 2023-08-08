@@ -22,12 +22,15 @@
         height: 100%;
         object-fit: cover;
         }
+        .zip-down {
+            float: left;
+        }
 
 
     </style>
 
     <h2 class="mt-4 mb-3">Product View: {{$product->name}}</h2>
-
+    <h2 class="mt-4 mb-3">id: {{$product->id}}</h2>
 
     <p style="text-align: right" class="pt-2">{{$product->created_at}}
 
@@ -40,6 +43,10 @@
     @else
         <a href="{{ route('products.index') }}">
             <button type="button" class="btn btn-primary">돌아가기</button>
+        </a>
+
+        <a href="{{ route('products.edit', ['product' => $product->id]) }}">
+            <button type="button" class="btn btn-primary">수정하기</button>
         </a>
     @endif
     </p>
@@ -55,17 +62,10 @@
         </div>
     </div>
     <br>
-    <!-- SwiperJS -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            @foreach ($files as $file)
-                <div class="swiper-slide">
-                    <img src="{{ route('products.previewImage', ['foldername' => $product->name, 'filename' => basename($file)]) }}" alt="Image Preview">
-                    {{ basename($file) }}
-                </div>
-            @endforeach
-        </div>
-    </div>
+        @foreach ($files as $file)
+                <img src="{{ route('products.previewImage', ['foldername' => $product->name, 'filename' => basename($file)]) }}" alt="Image Preview">
+                {{-- {{ basename($file) }} --}}
+        @endforeach
     <br>
 
 
@@ -82,34 +82,55 @@
         <p>
             {{-- {{ $file }} --}}
             파일명 :
-            <a href="{{ route('products.downloadFile',['foldername' => $product->name, 'filename' => basename($file)]) }}">
+            <a href="{{ route('products.downloadFile',['foldername' => $product->name, 'filename' => basename($file)]) }}" class="data-filename">
                 {{ basename($file) }}
             </a>
+            <button class="del-file" data-file="{{ basename($file) }}" data-folder="{{$product->name}}">x</button>
         </p>
     @endforeach
     <br>
-    <div class="">
+    <div class="zip-down">
         {{-- {{ $product->id }} --}}
-        <br>
         <a href="{{ route('products.download', ['name' => $product->name]) }}">
             <button type="button" class="btn btn-primary down-btn">zip으로 다운로드</button>
         </a>
     </div>
     <br>
 
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 1,
-        spaceBetween: 10,
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        pagination: { // 수정: 페이지네이션 추가
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
+        const delBtns = document.querySelectorAll('.del-file');
+
+        delBtns.forEach(delBtn => {
+            delBtn.addEventListener('click', async e => {
+                // alert('dd');
+                // const filename = event.currentTarget.getAttribute('data-filename');
+                const fileName = e.target.dataset.file;
+                const folderName = e.target.dataset.folder;
+                const response = await fetch("{{ route('products.deleteFile') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({
+                        folderName: folderName,
+                        fileName: fileName
+                    })
+                });
+
+                if (response.ok) {
+                    // 파일 삭제에 성공한 경우에 대한 처리
+                    console.log('성공');
+                } else {
+                    // 파일 삭제에 실패한 경우에 대한 처리
+                    console.error('실패');
+                }
+            });
+        });
+
+
     </script>
+
+
+
 @endsection

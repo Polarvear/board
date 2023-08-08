@@ -44,12 +44,15 @@ Route::get('products/{product}',[ProductController::class, 'show'])->name("produ
 Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name("products.edit");
 // Laravel에서 업데이트의 대한 메서드로는 Patch 또는 Put을 권장합니다.
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
+
 Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
 
 //다운로드 기능(일괄 다운로드)
 Route::get('/download/{name}', [ProductController::class, 'download'])->name('products.download');
 //다운로드 기능(개별 다운로드)
 Route::get('/downloadFile/{foldername}/{filename}', [ProductController::class, 'downloadFile'])->name('products.downloadFile');
+//파일 삭제기능
+Route::post('/deleteFile', [ProductController::class, 'deleteFile'])->name('products.deleteFile');
 //이미지 미리보기 기능
 Route::get('previewImage/{foldername}/{filename}', [ProductController::class, 'previewImage'])->name('products.previewImage');
 
