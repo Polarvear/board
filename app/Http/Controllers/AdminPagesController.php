@@ -54,20 +54,34 @@ class AdminPagesController extends Controller
         ]);
 
         $flow = $request['flow'];
-
-
         $productID = $request['product'];
         $flowName = 'flow_' . $flow ;
         $flowEmail = 'flow_' . $flow . '_email';
 
-        Product::where('id', '=', $productID)
-        ->update([
+        $requestEmail = $request['email'];
+        $userDB = User::where('email', '=', $requestEmail)->get();
+        $targetUserDBData = $userDB->first();
 
-        $flowName => $request['flow-manager'],
-        $flowEmail => $request['email']
-    ]);
+        $userDBName = $targetUserDBData->name;
+        $userDBPhone = $targetUserDBData->phone;
+        $requestUserName = $request['flow-manager'];
+        $requestPhone = $request['phone'];
 
-        return redirect()->route('admin.pages.index');
+        if ($userDBName != $requestUserName && $userDBPhone != $requestPhone) {
+            return redirect()->back()
+            ->with('error', '담당자 정보가 일치하지 않아 등록에 실패했습니다.
+                             이름, 이메일, 전화번호를 다시 확인해주세요.');
+        } else {
+            Product::where('id', '=', $productID)
+            ->update([
+
+                $flowName => $request['flow-manager'],
+                $flowEmail => $request['email']
+            ]);
+
+            return redirect()->route('admin.pages.index');
+        }
+
     }
 
 

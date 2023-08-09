@@ -6,6 +6,18 @@
 
 @yield('head')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    .ui-autocomplete {
+            max-height: 300px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+            /* add padding to account for vertical scrollbar */
+            padding-right: 20px;
+        }
+
+
+</style>
 
 
 
@@ -23,7 +35,11 @@
 @section('content')
 
     <h2 class="mt-4 mb-3">담당자 등록하기</h2>
-
+    @if(session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+    @endif
     {{-- 유효성 검사에 걸렸을 경우 --}}
     @if ($errors->any())
         <div class="alert alert-warning" role="alert">
@@ -76,6 +92,7 @@ $(function() {
     $('#' + elementId).autocomplete({
       source: routeName,
       minLength: minLength,
+      scroll:true,
     });
   }
 

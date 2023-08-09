@@ -80,31 +80,13 @@
     </p>
     <div class="content mt-4 rounded-3 border border-secondary">
         <div class="p-3">
-            작업자 이름 : {{ $userAllData->name }}
-        </div>
-    </div>
-    <div class="content mt-4 rounded-3 border border-secondary">
-        <div class="p-3">
-            소속(회사): {{ $userAllData->company }}
-        </div>
-    </div>
-    <div class="content mt-4 rounded-3 border border-secondary">
-        <div class="p-3">
-            이메일 :
-            <a href="mailto:{{ $userAllData->email }}">{{ $userAllData->email }}</a>
-        </div>
-    </div>
-    <div class="content mt-4 rounded-3 border border-secondary">
-        <div class="p-3">
-            연락처 : {{ $userAllData->phone }}
-        </div>
-    </div>
-    <div class="content mt-4 rounded-3 border border-secondary">
-        <div class="p-3">
+            작업자 이름 : {{ $userAllData->name }} ||
+            소속(회사): {{ $userAllData->company }} ||
+            이메일 : <a href="mailto:{{ $userAllData->email }}">{{ $userAllData->email }}</a> ||
+            연락처 : {{ $userAllData->phone }} ||
             소속(팀) : {{ $userAllData->team }}
         </div>
     </div>
-
     {{--
 
     <div class="content mt-4 rounded-3 border border-secondary">

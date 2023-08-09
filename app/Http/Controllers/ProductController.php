@@ -247,11 +247,27 @@ class ProductController extends Controller
     }
 
 
-    // 파일 다운로드 기능
+    // 파일 삭제 기능
     public function deleteFile(Request $request)
     {
-        Log::info('deleteFile 메서드 호출됨');
-        dd($request->all());
+        $folderName = $request->input('folderName');
+        $fileName = $request->input('fileName');
+
+        $filePath = storage_path('app/docs/' . $folderName . '/' . $fileName);
+
+
+    if (file_exists($filePath)) {
+        unlink($filePath);
+        session()->flash('success', '댓글이 성공적으로 등록되었습니다.');
+            // exit;
+        return redirect()->back();
+    } else {
+        return response()->json([
+            'message' => 'File not found',
+            'folderName' => $folderName,
+            'fileName' => $fileName
+            ], 404);
+        }
     }
 
 

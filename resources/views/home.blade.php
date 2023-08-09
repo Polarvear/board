@@ -1,68 +1,186 @@
-
-@extends('layouts.app')
+@extends('adminlte::page')
 
 @yield('head')
     <style>
+    table {
+        width: 100%;
+        border: 1px solid #444444;
+    }
+    th, td {
+      border: 1px solid #444444;
+    }
+
+    .create-btn {
+        margin-bottom: 10px;
+    }
+
+    /* 인라인으로 넣어야함 */
+    /* .inner-td {
+        vertical-align: middle;
+        text-align: center;
+    } */
+    .inner-div {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
+    }
+
+    .table td, .table th {
+        padding:0px !important;
+    }
     </style>
 
 
-
 @section('content')
-<div class="container">
+<h2 class="mt-4 mb-3">프로젝트 리스트</h2>
+
+<a href="{{route("products.create")}}">
+    <button type="button" class="btn btn-dark create-btn" style="float: right;">프로젝트 생성하기</button>
+</a>
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
-
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    You are a User.
+                    pages 페이지입니다.
                 </div>
             </div>
-            {{-- {{ $user->email }} --}}
-            <h2 style="margin-top: 10px;">진행중인 작업 목록</h2>
-            @foreach($products as $product)
-            @php
-            $productArray = $product->toArray();
-            $targetEmail = $user->email;
-            $matchingKeys = [];
-            foreach ($productArray as $key => $value) {
-            if ($value === $targetEmail) {
-            $matchingKeys[] = $key;
-                }
-            }
-            @endphp
-            <div class="card">
-                <div class="card-header">
-                 프로젝트 명 : {{ $product->name }}
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">담당 업무</h5>
-                  @foreach ($matchingKeys as $flow)
-
-                  @php
-                  // 정규표현식으로 추출
-                  preg_match('/\d+/', $flow, $matches);
-                  $flowNumber = $matches[0];
-                  @endphp
-                  {{-- {{ $flowNumber }} --}}
-                  {{-- <p class="card-text">{{ $flow }}</p> --}}
-                  <a href="{{ route('user-info') }}?manager={{ $user->email }}&product_id={{ $product->id }}&flow={{ $flowNumber }}" class="{{ $product->id }} a-tag">{{ $flow }}</a>
-                  <br>
-                  <br>
-                  @endforeach
-                  <a href="{{route("products.show", $product->id)}}" class="btn btn-primary">프로젝트 정보보기</a>
-                </div>
-              </div>
-            @endforeach
         </div>
     </div>
-</div>
+</div> --}}
+<table class="table table-striped table-hover" >
+    <colgroup>
+        <col width="50px" />
+        <col width="150px"/>
+        <col width="150px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width="80px"/>
+        <col width=""/>
+    </colgroup>
+    <thead>
+    <tr height="0">
+        <th scope="col" style="text-align: center;">연번</th>
+        <th scope="col" style="text-align: center;">이름</th>
+        <th scope="col" style="text-align: center;">영문이름</th>
+        <th scope="col" style="text-align: center;">기획</th>
+        <th scope="col" style="text-align: center;">획득</th>
+        <th scope="col" style="text-align: center;">모델링</th>
+        <th scope="col" style="text-align: center;">맵핑</th>
+        <th scope="col" style="text-align: center;">게임엔진</th>
+        <th scope="col" style="text-align: center;">배포</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{-- blade 에서는 아래 방식으로 반복문을 처리합니다. --}}
+    {{-- Product Controller의 index에서 넘긴 $products(product 데이터 리스트)를 출력해줍니다. --}}
+    @foreach ($products as $key => $product)
+        <tr>
+            <th scope="row" style="display:flex; justify-content:center; border:none; border-top: 1px solid black;">{{$key+1 + (($products->currentPage()-1) * 10)}}</th>
+            <td style="">
+                <a style="display:flex; justify-content:center;" href="{{route("products.show", $product->id)}}">{{$product->name}}</a>
+            </td>
+            <td>
 
+            </td><!--영문이름-->
+            <td class="inner-td" style="">
+                <div class="inner-div" style="">
+                    @if ($product->flow_1_email)
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_1_email }}&product_id={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">{{ $product->flow_1 }}</a>
+                    </div>
+                    @else
+                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">등록</a>
+                    @endif
+                </div>
+            </td><!--기획-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
+                    @if ($product->flow_2_email)
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_2_email }}&product_id={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag">{{ $product->flow_2 }}</a>
+                    </div>
+                    @else
+                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag" >등록</a>
+                    @endif
+                </div>
+            </td><!--획득-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
+                    @if ($product->flow_3_email)
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_3_email }}&product_id={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">{{ $product->flow_3 }}</a>
+                    </div>
+                    @else
+                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">등록</a>
+                    @endif
+                </div>
+            </td><!--모델링-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
 
+                    @if ($product->flow_4_email)
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_4_email }}&product_id={{ $product->id }}&flow=4" class="{{ $product->id }} a-tag">{{ $product->flow_4 }}</a>
+                    </div>
+                    @else
+                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=4" class="{{ $product->id }} a-tag" >등록</a>
+                    @endif
+                </div>
+            </td><!--맵핑-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
+                    @if ($product->flow_5_email)
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_5_email }}&product_id={{ $product->id }}&flow=5" class="{{ $product->id }} a-tag">{{ $product->flow_5 }}</a>
+                    </div>
+                    @else
+                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=3" class="{{ $product->id }} a-tag">등록</a>
+                    @endif
+                </div>
+            </td><!--게임엔진-->
+            <td class="inner-td">
+                <div class="inner-div" style="">
+                    @if ($product->flow_6_email)
+                    <div class="flow-status">
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_6_email }}&product_id={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag">{{ $product->flow_6 }}</a>
+                    </div>
+                    @else
+                    <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=6" class="{{ $product->id }} a-tag" >등록</a>
+                    @endif
 
+                </div>
+            </td><!--배포-->
+
+            <!-- 수정 & 삭제 부분 주석처리 -->
+            <td>
+              <div style="display:flex; height:25px;" >
+                  <!--button class="save-btn {{$product->id}}">저장</button-->
+                  <!-- <input type="submit" class="save-btn {{$product->id}}"/> -->
+                  {{-- <div>{{$product->id}}</div> --}}
+                <!-- </form> -->
+                <form action="{{route('products.destroy', $product->id)}}" method="post" style="margin-left: 10px;">
+                    {{-- delete method와 csrf 처리필요 --}}
+                    @method('delete')
+                    @csrf
+                    <input class="" onclick="return confirm('프로젝트를 삭제하겠습니까?')" type="submit" value="X"/>
+                </form>
+              </div>
+            </td>
+
+        </tr>
+    @endforeach
+    </tbody>
+</table>
+{{-- 페이지 네이션 속성 class="pagination" 으로 컨트롤 --}}
+{!! $products->links() !!}
 @endsection
+

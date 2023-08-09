@@ -25,6 +25,10 @@
         .zip-down {
             float: left;
         }
+        .del-file {
+            border:1px solid;
+            border-radius: 30%;
+        }
 
 
     </style>
@@ -63,8 +67,8 @@
     </div>
     <br>
         @foreach ($files as $file)
-                <img src="{{ route('products.previewImage', ['foldername' => $product->name, 'filename' => basename($file)]) }}" alt="Image Preview">
-                {{-- {{ basename($file) }} --}}
+                    <img src="{{ route('products.previewImage', ['foldername' => $product->name, 'filename' => basename($file)]) }}" alt="Image Preview" height="" width="1000px">
+                    <div>{{ basename($file) }}</div>
         @endforeach
     <br>
 
@@ -85,7 +89,7 @@
             <a href="{{ route('products.downloadFile',['foldername' => $product->name, 'filename' => basename($file)]) }}" class="data-filename">
                 {{ basename($file) }}
             </a>
-            <button class="del-file" data-file="{{ basename($file) }}" data-folder="{{$product->name}}">x</button>
+            <button class="del-file" data-file="{{ basename($file) }}" data-folder="{{$product->name}}">X</button>
         </p>
     @endforeach
     <br>
@@ -102,29 +106,34 @@
 
         delBtns.forEach(delBtn => {
             delBtn.addEventListener('click', async e => {
-                // alert('dd');
-                // const filename = event.currentTarget.getAttribute('data-filename');
-                const fileName = e.target.dataset.file;
-                const folderName = e.target.dataset.folder;
-                const response = await fetch("{{ route('products.deleteFile') }}", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    body: JSON.stringify({
-                        folderName: folderName,
-                        fileName: fileName
-                    })
-                });
 
-                if (response.ok) {
-                    // 파일 삭제에 성공한 경우에 대한 처리
-                    console.log('성공');
-                } else {
-                    // 파일 삭제에 실패한 경우에 대한 처리
-                    console.error('실패');
-                }
+
+                if (confirm('삭제하시겠습니까?')) {
+                    // const filename = event.currentTarget.getAttribute('data-filename');
+                    const fileName = e.target.dataset.file;
+                    const folderName = e.target.dataset.folder;
+                    const response = await fetch("{{ route('products.deleteFile') }}", {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            folderName: folderName,
+                            fileName: fileName
+                        })
+                    });
+
+                    if (response.ok) {
+                        location.reload();
+                        return response.json();
+                    } else {
+                        // 파일 삭제에 실패한 경우에 대한 처리
+                        console.error(error);
+                        return;
+                    }
+                } //end confirm
+
             });
         });
 

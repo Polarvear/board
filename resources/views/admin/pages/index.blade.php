@@ -90,23 +90,6 @@
             </td>
             <td>
 
-                @php
-                    $flow1Email = $product->flow_1_email;
-                    $flow2Email = $product->flow_2_email;
-                    $flow3Email = $product->flow_3_email;
-                    $flow4Email = $product->flow_4_email;
-                    $flow5Email = $product->flow_5_email;
-                    $flow6Email = $product->flow_6_email;
-                    $flow7Email = $product->flow_7_email;
-                    $flow8Email = $product->flow_8_email;
-                    $flow9Email = $product->flow_9_email;
-                    $flow10Email = $product->flow_10_email;
-                    $flow11Email = $product->flow_11_email;
-                    $flow12Email = $product->flow_12_email;
-                @endphp
-
-
-
             </td><!--영문이름-->
             <td class="inner-td" style="">
                 <div class="inner-div" style="">
