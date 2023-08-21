@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\UploadController;
 use \App\Http\Controllers\HomeController;
 use \App\Http\Controllers\GoogleAuthController;
@@ -45,7 +46,9 @@ Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name(
 // Laravel에서 업데이트의 대한 메서드로는 Patch 또는 Put을 권장합니다.
 Route::patch('products/{product}', [ProductController::class, 'update'])->name('products.update');
 
-Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+Route::delete('products/{poduct}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+Route::post('products/status/{productId}/{flow}/{status}', [App\Http\Controllers\ProductController::class, 'productStatusChange'])->name('product.status.change');
 
 //다운로드 기능(일괄 다운로드)
 Route::get('/download/{name}', [ProductController::class, 'download'])->name('products.download');
@@ -54,7 +57,7 @@ Route::get('/downloadFile/{foldername}/{filename}', [ProductController::class, '
 //파일 삭제기능
 Route::post('/deleteFile', [ProductController::class, 'deleteFile'])->name('products.deleteFile');
 //이미지 미리보기 기능
-Route::get('previewImage/{foldername}/{filename}', [ProductController::class, 'previewImage'])->name('products.previewImage');
+Route::post('previewImage/{foldername}/{filename}', [ProductController::class, 'previewImage'])->name('products.previewImage');
 
 
 
@@ -72,7 +75,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::post('/ajaxRequest', 'App\Http\Controllers\ProductController@ajaxRequest')->name('product.ajaxRequest');
 
 Route::get('/user-info', [App\Http\Controllers\JobsController::class, 'index'])->name('user-info');
-
+//유저 정보 수정
+Route::get('/user-profile', [App\Http\Controllers\UserController::class, 'index'])->name('user-profile');
+Route::get('/profile-edit', [App\Http\Controllers\UserController::class, 'edit'])->name('profile-edit');
+Route::post('/update', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 //댓글등록
 Route::post('/comments/store', [App\Http\Controllers\CommentsController::class, 'store'])->name('comment.add');
 
@@ -92,7 +98,7 @@ Route::post('/comments/statusChange', [App\Http\Controllers\CommentsController::
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
@@ -111,6 +117,13 @@ Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
     Route::get('/manager/home', [HomeController::class, 'managerHome'])->name('manager.home');
 });
+
+//세션 만료 설정
+
+Route::get('/session/expired', function () {
+    return view('session.expired');
+})->name('session.expired');
+
 
 
 Route::get('/admin/manage', [App\Http\Controllers\AdminManageController::class, 'index'])->name('admin.manage.index');

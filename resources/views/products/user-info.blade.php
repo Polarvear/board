@@ -5,6 +5,37 @@
     $manager = request()->query('manager');
     $productId = request()->query('product_id');
     $flow = request()->query('flow');
+    $status = request()->query('status');
+    print_r($status);
+
+
+    $buttonColor = '';
+    switch ($status) {
+        case '1':
+            $buttonColor = '#8b0000';
+            break;
+        case '2':
+            $buttonColor = '#ff0000';
+            break;
+        case '3':
+            $buttonColor = 'blue';
+            break;
+        case '4':
+            $buttonColor = '#ffd700';
+            break;
+        case '5':
+            $buttonColor = '#adff2f';
+            break;
+        case '6':
+            $buttonColor = '#008000';
+            break;
+        case '7':
+            $buttonColor = '#00bfff';
+            break;
+        // 다른 경우들에 대한 처리...
+        default:
+            $buttonColor = 'gray';
+    }
 @endphp
 
 @yield('head')
@@ -23,8 +54,9 @@
         .submit-btn {
             margin-top:10px;
         }
-
-
+        .receive-btn {
+            float: right;
+        }
 
     </style>
 
@@ -44,13 +76,25 @@
     @endif
     <p class="p-tag" style="" class="pt-2">
         @if (Auth::user()->type == 'user')
-        <a href="javascript:history.back()">
-            <button type="button" class="btn btn-primary">돌아가기</button>
-        </a>
+        <div>
+
+            <a href="javascript:history.back()">
+                <button type="button" class="btn btn-primary">돌아가기</button>
+            </a>
+            <form method="post" action="{{route('product.status.change', ['productId' => $productId, 'flow' => $flow] )}}" enctype="multipart/form-data" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-light receive-btn">수령하기</button>
+            </form>
+        </div>
         @else
         <a href="{{ route('products.index') }}">
             <button type="button" class="btn btn-primary">돌아가기</button>
         </a>
+        <form method="post" action="{{route('product.status.change', ['productId' => $productId, 'flow' => $flow, 'status' => $status] )}}" enctype="multipart/form-data" style="display:inline;">
+            @csrf
+            <button type="button" class="btn btn-light receive-btn" onclick="confirmAndSubmit()" style="background-color: {{ $buttonColor }};">진행하기(admin)</button>
+        </form>
+
         @endif
 
       {{-- {{$user[0]->type}}
@@ -142,6 +186,20 @@
     @endforeach
 {{-- javascript 시작 --}}
     <script>
+    //recieveBtn 이벤트 설정
+    // const receiveBtn = document.querySelector('.receive-btn');
+    // receiveBtn.addEventListener('click', (e) => {
+    //     alert('ddd');
+    // });
+    function confirmAndSubmit() {
+        if (confirm('진행하시겠습니까?')) {
+            document.querySelector('form').submit();
+        }
+    }
+
+
+
+
     // 댓글 삭제기능
     const deleteUrl = "{{ route('comment.delete') }}";
     function confirmDelete(commentId) {

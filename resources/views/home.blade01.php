@@ -21,6 +21,7 @@
                         </div>
                     @endif
                     You are a User.
+                    <a href="#" class="btn btn-primary">개인정보 수정</a>
                 </div>
             </div>
             {{-- {{ $user->email }} --}}

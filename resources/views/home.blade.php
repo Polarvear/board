@@ -33,6 +33,23 @@
     }
     </style>
 
+@php
+    $currentRoute = Route::current();
+
+    if ($currentRoute) {
+        $routeName = $currentRoute->getName(); // 현재 라우트의 이름
+        $controllerAction = $currentRoute->getActionName(); // 현재 라우트의 컨트롤러 액션 정보
+
+        // 라우트 정보를 출력 또는 활용
+        echo "현재 라우트 이름: $routeName<br>";
+        echo "현재 컨트롤러 액션: $controllerAction<br>";
+    } else {
+        echo "현재 라우트를 찾을 수 없습니다.";
+    }
+    // exit;
+@endphp
+
+
 
 @section('content')
 <h2 class="mt-4 mb-3">프로젝트 리스트</h2>
@@ -83,8 +100,10 @@
     {{-- blade 에서는 아래 방식으로 반복문을 처리합니다. --}}
     {{-- Product Controller의 index에서 넘긴 $products(product 데이터 리스트)를 출력해줍니다. --}}
     @foreach ($products as $key => $product)
+        {{-- {{ $product }} --}}
         <tr>
-            <th scope="row" style="display:flex; justify-content:center; border:none; border-top: 1px solid black;">{{$key+1 + (($products->currentPage()-1) * 10)}}</th>
+            <th scope="row" style="display:flex; justify-content:center; border:none; border-top: 1px solid black;"></th>
+            {{-- <th scope="row" style="display:flex; justify-content:center; border:none; border-top: 1px solid black;">{{$key+1 + (($ ->currentPage()-1) * 10)}}</th> --}}
             <td style="">
                 <a style="display:flex; justify-content:center;" href="{{route("products.show", $product->id)}}">{{$product->name}}</a>
             </td>
@@ -95,7 +114,7 @@
                 <div class="inner-div" style="">
                     @if ($product->flow_1_email)
                     <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_1_email }}&product_id={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">{{ $product->flow_1 }}</a>
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_1_email }}&product_id={{ $product->id }}&flow=1&status={{ $product->flow_1_status }}" class="{{ $product->id }} a-tag">{{ $product->flow_1 }}</a>
                     </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=1" class="{{ $product->id }} a-tag">등록</a>
@@ -106,7 +125,7 @@
                 <div class="inner-div" style="">
                     @if ($product->flow_2_email)
                     <div class="flow-status">
-                        <a href="{{ route('user-info') }}?manager={{ $product->flow_2_email }}&product_id={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag">{{ $product->flow_2 }}</a>
+                        <a href="{{ route('user-info') }}?manager={{ $product->flow_2_email }}&product_id={{ $product->id }}&flow=2&status={{ $product->flow_2_status }}" class="{{ $product->id }} a-tag">{{ $product->flow_2 }}</a>
                     </div>
                     @else
                     <a href="{{ route('admin.pages.create') }}?product={{ $product->id }}&flow=2" class="{{ $product->id }} a-tag" >등록</a>
@@ -181,6 +200,6 @@
     </tbody>
 </table>
 {{-- 페이지 네이션 속성 class="pagination" 으로 컨트롤 --}}
-{!! $products->links() !!}
+{!! $productsPage->links() !!}
 @endsection
 

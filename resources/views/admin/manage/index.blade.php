@@ -59,14 +59,14 @@
             <td style="">
                 <div style="display:flex; width: 177px;">
                     <div style="">
-                      <a href="{{ route('user-info') }}?manager={{$user->name}}&product_id={{$user->name}}" class="{{$user->name}} a-tag">{{$user->name}}</a>
+                      <a href="{{ route('user-profile') }}?manager={{$user->email}}" class="{{$user->name}} a-tag">{{$user->name}}</a>
                     </div>
                   </div>
             </td>
             <td>
                 <div style="display:flex; width: 177px;">
                     <div style="">
-                      <a href="{{ route('user-info') }}?manager={{$user->name}}&product_id={{$user->name}}" class="{{$user->name}} a-tag">{{$user->type}}</a>
+                      <span>{{$user->type}}</span>
                     </div>
                 </div>
             </td><!--영문이름-->
@@ -78,12 +78,12 @@
                   {{-- <div>{{$product->id}}</div> --}}
                 <!-- </form> -->
 
-                <form action="{{route('admin.manage.destroy', $user->id)}}" method="post" style="margin-left: 10px;">
+                {{-- <form action="{{route('admin.manage.destroy', $user->id)}}" method="post" style="margin-left: 10px;"> --}}
                     {{-- delete method와 csrf 처리필요 --}}
                     @method('delete')
                     @csrf
-                    <input class="btn btn-danger" nclick="return confirm('정말로 삭제하겠습니까?')" type="submit" value="회원 탈퇴"/>
-                </form>
+                    <input class="btn btn-danger" onclick="return confirm('정말로 삭제하겠습니까?')" type="submit" value="회원 탈퇴"/>
+                {{-- </form> --}}
 
               </div>
             </td>

@@ -60,14 +60,14 @@
             <input type="text" name="flow-manager" class="form-control" id="flow-manager" autocomplete="" placeholder="" >
 
         </div>
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
             <input type="email" name="email" class="form-control" id="email" autocomplete="off">
-        </div>
-        <div class="mb-3">
+        </div> --}}
+        {{-- <div class="mb-3">
             <label for="assets-sort" class="form-label">전화번호</label>
             <input type="text" name="phone" class="form-control" id="phone" autocomplete="off">
-        </div>
+        </div> --}}
         <input type="hidden" name="flow" class="form-control" id="flow" autocomplete="" value="{{ $flow }}">
         <input type="hidden" name="product" class="form-control" id="product" autocomplete="" value="{{ $product }}">
         <br>

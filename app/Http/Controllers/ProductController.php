@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use ZipArchive;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 
 class ProductController extends Controller
@@ -29,7 +30,6 @@ class ProductController extends Controller
 
   public function create()
   {
-
     return view('products.create');
   }
 
@@ -284,7 +284,29 @@ class ProductController extends Controller
         return response($fileContents)->header('Content-Type', $imageType);
     }
 
-    abort(404, 'File not found');
+        abort(404, 'File not found');
+    }
+
+
+    /**
+    * productStatusChange 메서드 설명
+    *
+    * @param int $status 이 파라미터는 개별 작업 단계의 상태를 의미합니다.
+    * @param int $flow 이 파라미터는 전체 작업 단계에서의 순서를 의미합니다.
+    */
+
+    public function productStatusChange(Request $request, $productId, $flow, $status)
+    {
+        // $flowStatus = 'flow_'.$flow.'_status';
+
+        $updateStatus = $status + 1;
+
+        // dd($updateStatus);
+        DB::table('products')
+        ->where('id', $productId)
+        ->update(["flow_{$flow}_status" => $updateStatus]);
+
+        return redirect()->route('admin.pages.index');
     }
 
 }

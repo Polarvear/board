@@ -14,6 +14,10 @@ class product extends Model
         return $this->hasMany(Attachment::class);
     }
 
+    public static function getProductData() {
+        return self::all();
+    }
+
     protected $fillable = [
       'name', 'content', 'type', 'assets_sort', 'level', 'advisor',
       'flow_1',
